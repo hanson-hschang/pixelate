@@ -2,4 +2,7 @@
 Pixelate - A pixel art generator from markdown files with TOML frontmatter.
 """
 
-__version__ = "1.0.0"
+from typing import Final
+from importlib import metadata
+
+__version__: Final[str] = metadata.version("pixelate")
