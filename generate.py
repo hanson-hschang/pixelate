@@ -119,7 +119,6 @@ def generate_pixel_image(color_dict: Dict[str, str], pixel_grid: List[List[str]]
     for row_idx, row in enumerate(pixel_grid):
         for col_idx, cell_value in enumerate(row):
             cell_value = cell_value.strip()
-                
             # Get color from dictionary
             if cell_value in color_dict:
                 hex_color = color_dict[cell_value]
