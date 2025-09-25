@@ -175,14 +175,6 @@ def main(folder: str, pixel_size: int) -> None:
     # Convert folder argument to Path
     folder_path = Path(folder)
     
-    if not folder_path.exists():
-        print(f"Error: Folder '{folder_path}' does not exist")
-        sys.exit(1)
-    
-    if not folder_path.is_dir():
-        print(f"Error: '{folder_path}' is not a directory")
-        sys.exit(1)
-    
     # Find all markdown files
     markdown_files = find_markdown_files(folder_path)
     if not markdown_files:
