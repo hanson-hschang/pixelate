@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pixelate"
+version = "1.0.0"
+authors = [
+    {name = "Heng-Sheng Chang"},
+]
+description = "A CLI tool that generates pixel art PNG images from markdown files with TOML front-matter"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "toml>=0.10.2",
+    "pillow>=10.0.0",
+    "click>=8.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/hanson-hschang/pixelate"
+"Bug Reports" = "https://github.com/hanson-hschang/pixelate/issues"
+"Source" = "https://github.com/hanson-hschang/pixelate"
+
+[project.scripts]
+pixelate = "pixelate.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["pixelate*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v"

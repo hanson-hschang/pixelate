@@ -24,7 +24,7 @@ def main(input_path: str, pixel_size: int, format: str) -> None:
         pixelate foldername
         pixelate filename.md --pixel-size 20 --format png
     """
-    app = PixelateApp()
+    app: PixelateApp = PixelateApp()
     app.run(input_path, pixel_size, format)
 
 
