@@ -53,7 +53,7 @@ def parse_markdown_file(file_path: Path) -> Tuple[Dict[str, str], List[List[str]
     # Extract color dictionary
     color_dict = {}
     for key, value in toml_data.items():
-        if isinstance(value, str) and (value.startswith('#') or value.startswith('rgba')):
+        if isinstance(value, str) and value.startswith('#'):
             color_dict[key] = value
     
     # Parse CSV content (everything after the second +++)
