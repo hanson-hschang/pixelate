@@ -65,9 +65,13 @@ The tool processes markdown files with this structure:
 - `pillow>=10.0.0` - Image generation
 - `click>=8.0.0` - CLI framework
 - `pytest>=8.0.0` - Testing (dev dependency)
+- `mypy>=1.0.0` - Static type checking (dev dependency)
+- `types-toml` - Type stubs for TOML library
+- `types-Pillow` - Type stubs for Pillow/PIL library
 
 ### Testing
 - Run tests with: `python -m pytest tests/ -v`
+- Run type checking with: `mypy pixelate/ tests/`
 - All classes have comprehensive test coverage
 - Tests use temporary files and proper cleanup
 - Use type hints in test code as well

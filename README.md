@@ -18,6 +18,23 @@ cd pixelate
 pip install -e .
 ```
 
+## Development
+
+### Testing
+```bash
+# Run tests
+python -m pytest tests/ -v
+
+# Run type checking
+mypy pixelate/ tests/
+```
+
+### Dependencies
+For development, install additional dependencies:
+```bash
+pip install pytest mypy types-toml types-Pillow
+```
+
 ## Usage
 
 ### Single file usage

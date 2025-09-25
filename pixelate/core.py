@@ -126,7 +126,7 @@ class ImageGenerator:
                 x2: int = x1 + pixel_size
                 y2: int = y1 + pixel_size
                 
-                draw.rectangle([x1, y1, x2, y2], fill=rgba_color)
+                draw.rectangle((x1, y1, x2, y2), fill=rgba_color)
         
         # Save the image
         image.save(output_path, format.upper())

@@ -4,3 +4,4 @@ click>=8.0.0
 pytest>=8.0.0
 mypy>=1.0.0
 types-toml
+types-Pillow
