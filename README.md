@@ -1,24 +1,47 @@
 # PIXELATE
 
-A Python script that generates pixel art PNG images from markdown files with TOML front-matter.
+A CLI tool that generates pixel art PNG images from markdown files with TOML front-matter.
 
 ## Installation
 
+### From source
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/hanson-hschang/pixelate.git
+cd pixelate
+pip install .
+```
+
+### Development installation
+```bash
+git clone https://github.com/hanson-hschang/pixelate.git
+cd pixelate
+pip install -e .
 ```
 
 ## Usage
 
+### Single file usage
 ```bash
-python generate.py --folder <FOLDER-PATH> [--pixel-size SIZE] [--format FORMAT]
+pixelate filename.md
 ```
+This generates `filename.png` in the same directory as the markdown file.
 
-- `--folder`: Path to folder containing markdown files with pixel art data
-- `--pixel-size`: Size of each pixel in the output image (default: 10)
-- `--format`: Output image format (default: png)
+### Folder usage
+```bash
+pixelate foldername
+```
+This processes all `.md` files in the `foldername` folder and generates corresponding PNG files with the same names (e.g., `pixelate.md` -> `pixelate.png`) in the same folder.
 
-This will process all `.md` files in the `<FOLDER-PATH>` folder and generate corresponding files with the same names (e.g., `pixelate.md` -> `pixelate.png`) in the same folder.
+### Optional arguments
+- `--pixel-size SIZE`: Size of each pixel in the output image (default: 10)
+- `--format FORMAT`: Output image format (default: png)
+
+### Examples
+```bash
+pixelate examples/bird.md
+pixelate examples/
+pixelate myfile.md --pixel-size 20 --format png
+```
 
 ## Format
 
