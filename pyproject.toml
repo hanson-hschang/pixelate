@@ -33,6 +33,14 @@ dependencies = [
     "click>=8.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "mypy>=1.0.0",
+    "types-toml",
+    "types-Pillow",
+]
+
 [project.urls]
 "Homepage" = "https://github.com/hanson-hschang/pixelate"
 "Bug Reports" = "https://github.com/hanson-hschang/pixelate/issues"

@@ -78,8 +78,8 @@ The tool processes markdown files with this structure:
 
 ### Installation & Usage
 ```bash
-# Development installation
-pip install -e .
+# Development installation with type checking dependencies
+pip install -e .[dev]
 
 # Usage examples
 pixelate filename.md
