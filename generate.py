@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Pixel Icon Generator
+Pixelate
 
 A script that takes a folder name as argument, finds markdown files within that folder
 containing TOML frontmatter with color definitions and CSV-like pixel data, then generates
@@ -9,7 +9,7 @@ PNG pixel art images.
 Format expected:
 - Markdown file with TOML frontmatter wrapped in +++
 - TOML contains color mappings: number = "hex_color_with_transparency"
-- After frontmatter: CSV-like format with numbers indicating colors
+- After front-matter: CSV-like format with numbers indicating colors
 - Position of numbers indicates row/column in the pixel grid
 """
 
@@ -119,10 +119,6 @@ def generate_pixel_image(color_dict: Dict[str, str], pixel_grid: List[List[str]]
     for row_idx, row in enumerate(pixel_grid):
         for col_idx, cell_value in enumerate(row):
             cell_value = cell_value.strip()
-            
-            # Skip empty cells
-            if not cell_value or cell_value == '0':
-                continue
                 
             # Get color from dictionary
             if cell_value in color_dict:
@@ -193,11 +189,12 @@ def main(folder: str, pixel_size: int) -> None:
         print(f"Error: No markdown files found in folder '{folder_path}'")
         sys.exit(1)
     
-    print(f"Found {len(markdown_files)} markdown file(s) to process")
+    print(f"Found {len(markdown_files)} markdown file(s) to process\n")
     
     # Process each markdown file
     for markdown_file in markdown_files:
         process_markdown_file(markdown_file, folder_path, pixel_size)
+        print()  # Blank line between files
 
 
 if __name__ == '__main__':
