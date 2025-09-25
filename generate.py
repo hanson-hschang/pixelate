@@ -94,15 +94,16 @@ def hex_to_rgba(hex_color: str) -> Tuple[int, int, int, int]:
 
 
 def generate_pixel_image(color_dict: Dict[str, str], pixel_grid: List[List[str]], 
-                        output_path: Path, pixel_size: int = 10) -> None:
+                        output_path: Path, pixel_size: int = 10, format: str = 'png') -> None:
     """
-    Generate a PNG image from the pixel grid and color dictionary.
+    Generate an image from the pixel grid and color dictionary.
     
     Args:
         color_dict: Mapping of number strings to hex colors
         pixel_grid: 2D list representing the pixel art
-        output_path: Path where to save the PNG file
+        output_path: Path where to save the image file
         pixel_size: Size of each pixel in the output image (default: 10x10)
+        format: The format of the output image
     """
     if not pixel_grid:
         raise ValueError("Pixel grid is empty")
@@ -140,12 +141,12 @@ def generate_pixel_image(color_dict: Dict[str, str], pixel_grid: List[List[str]]
             draw.rectangle([x1, y1, x2, y2], fill=rgba_color)
     
     # Save the image
-    image.save(output_path, 'PNG')
+    image.save(output_path, format.upper())
     print(f"Pixel icon saved to: {output_path}")
 
 
-def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: int) -> None:
-    """Process a single markdown file and generate its PNG."""
+def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: int, format: str) -> None:
+    """Process a single markdown file and generate its image."""
     try:
         print(f"Processing file: {markdown_file}")
         
@@ -156,11 +157,11 @@ def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: in
         print(f"Pixel grid size: {len(pixel_grid)} rows, {max(len(row) for row in pixel_grid) if pixel_grid else 0} columns")
         
         # Generate output filename with same name as markdown file
-        output_filename = markdown_file.stem + '.png'
+        output_filename = markdown_file.stem + f'.{format}'
         output_path = folder_path / output_filename
         
         # Generate the pixel image
-        generate_pixel_image(color_dict, pixel_grid, output_path, pixel_size)
+        generate_pixel_image(color_dict, pixel_grid, output_path, pixel_size, format)
         
     except Exception as e:
         print(f"Error processing {markdown_file}: {e}")
@@ -169,7 +170,8 @@ def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: in
 @click.command()
 @click.option('--folder', type=click.Path(exists=True, file_okay=False, dir_okay=True), help='The folder containing markdown files for pixel art generation.')
 @click.option('--pixel-size', type=int, default=10, help='Size of each pixel in the output image (default: 10)')
-def main(folder: str, pixel_size: int) -> None:
+@click.option('--format', type=str, default='png', help='Output image format (default: png)')
+def main(folder: str, pixel_size: int, format: str) -> None:
     """Generate pixel icons from markdown files with TOML frontmatter."""
     # Convert folder argument to Path
     folder_path = Path(folder)
@@ -184,7 +186,7 @@ def main(folder: str, pixel_size: int) -> None:
     
     # Process each markdown file
     for markdown_file in markdown_files:
-        process_markdown_file(markdown_file, folder_path, pixel_size)
+        process_markdown_file(markdown_file, folder_path, pixel_size, format)
         print()  # Blank line between files
 
 

@@ -11,13 +11,14 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python generate.py --folder <FOLDER-PATH> [--pixel-size SIZE]
+python generate.py --folder <FOLDER-PATH> [--pixel-size SIZE] [--format FORMAT]
 ```
 
 - `--folder`: Path to folder containing markdown files with pixel art data
 - `--pixel-size`: Size of each pixel in the output image (default: 10)
+- `--format`: Output image format (default: png)
 
-This will process all `.md` files in the `<FOLDER-PATH>` folder and generate corresponding PNG files with the same names (e.g., `pixelate.md` -> `pixelate.png`).
+This will process all `.md` files in the `<FOLDER-PATH>` folder and generate corresponding files with the same names (e.g., `pixelate.md` -> `pixelate.png`) in the same folder.
 
 ## Format
 
