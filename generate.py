@@ -13,11 +13,9 @@ Format expected:
 - Position of numbers indicates row/column in the pixel grid
 """
 
-import os
 import sys
-import re
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 import toml
 import click
 from PIL import Image, ImageDraw
@@ -174,8 +172,8 @@ def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: in
 
 
 @click.command()
-@click.argument('folder')
-@click.option('--pixel-size', default=10, help='Size of each pixel in the output image (default: 10)')
+@click.option('--folder', type=click.Path(exists=True, file_okay=False, dir_okay=True), help='The folder containing markdown files for pixel art generation.')
+@click.option('--pixel-size', type=int, default=10, help='Size of each pixel in the output image (default: 10)')
 def main(folder: str, pixel_size: int) -> None:
     """Generate pixel icons from markdown files with TOML frontmatter."""
     # Convert folder argument to Path
