@@ -6,10 +6,10 @@ A Python script that generates pixel art PNG images from markdown files with TOM
 ## Usage
 
 ```bash
-python pixel_icon_generator.py <folder_name> [--pixel-size SIZE]
+python generate.py <folder_name> [--pixel-size SIZE]
 ```
 
-- `folder_name`: Path to folder containing a markdown file with pixel art data
+- `folder_name`: Path to folder containing markdown files with pixel art data
 - `--pixel-size`: Size of each pixel in the output image (default: 10)
 
 ## Format
@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ## Example
 
 ```bash
-python pixel_icon_generator.py examples
+python generate.py examples
 ```
 
-This will process `examples/heart.md` and generate `examples/heart_pixel_icon.png`.
+This will process all `.md` files in the `examples` folder and generate corresponding PNG files with the same names (e.g., `heart.md` → `heart.png`).

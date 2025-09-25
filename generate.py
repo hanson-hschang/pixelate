@@ -2,9 +2,9 @@
 """
 Pixel Icon Generator
 
-A script that takes a folder name as argument, finds a markdown file within that folder
+A script that takes a folder name as argument, finds markdown files within that folder
 containing TOML frontmatter with color definitions and CSV-like pixel data, then generates
-a PNG pixel art image.
+PNG pixel art images.
 
 Format expected:
 - Markdown file with TOML frontmatter wrapped in +++
@@ -13,21 +13,19 @@ Format expected:
 - Position of numbers indicates row/column in the pixel grid
 """
 
-import argparse
 import os
 import sys
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import toml
+import click
 from PIL import Image, ImageDraw
 
 
-def find_markdown_file(folder_path: Path) -> Optional[Path]:
-    """Find the first markdown file in the given folder."""
-    for file_path in folder_path.glob("*.md"):
-        return file_path
-    return None
+def find_markdown_files(folder_path: Path) -> List[Path]:
+    """Find all markdown files in the given folder."""
+    return list(folder_path.glob("*.md"))
 
 
 def parse_markdown_file(file_path: Path) -> Tuple[Dict[str, str], List[List[str]]]:
@@ -153,16 +151,35 @@ def generate_pixel_image(color_dict: Dict[str, str], pixel_grid: List[List[str]]
     print(f"Pixel icon saved to: {output_path}")
 
 
-def main():
-    """Main function to handle command line arguments and orchestrate the process."""
-    parser = argparse.ArgumentParser(description='Generate pixel icon from markdown file with TOML frontmatter')
-    parser.add_argument('folder', help='Name of folder containing the markdown file')
-    parser.add_argument('--pixel-size', type=int, default=10, help='Size of each pixel in the output image (default: 10)')
-    
-    args = parser.parse_args()
-    
+def process_markdown_file(markdown_file: Path, folder_path: Path, pixel_size: int) -> None:
+    """Process a single markdown file and generate its PNG."""
+    try:
+        print(f"Processing file: {markdown_file}")
+        
+        # Parse the markdown file
+        color_dict, pixel_grid = parse_markdown_file(markdown_file)
+        
+        print(f"Found {len(color_dict)} colors: {list(color_dict.keys())}")
+        print(f"Pixel grid size: {len(pixel_grid)} rows, {max(len(row) for row in pixel_grid) if pixel_grid else 0} columns")
+        
+        # Generate output filename with same name as markdown file
+        output_filename = markdown_file.stem + '.png'
+        output_path = folder_path / output_filename
+        
+        # Generate the pixel image
+        generate_pixel_image(color_dict, pixel_grid, output_path, pixel_size)
+        
+    except Exception as e:
+        print(f"Error processing {markdown_file}: {e}")
+
+
+@click.command()
+@click.argument('folder')
+@click.option('--pixel-size', default=10, help='Size of each pixel in the output image (default: 10)')
+def main(folder: str, pixel_size: int) -> None:
+    """Generate pixel icons from markdown files with TOML frontmatter."""
     # Convert folder argument to Path
-    folder_path = Path(args.folder)
+    folder_path = Path(folder)
     
     if not folder_path.exists():
         print(f"Error: Folder '{folder_path}' does not exist")
@@ -172,31 +189,17 @@ def main():
         print(f"Error: '{folder_path}' is not a directory")
         sys.exit(1)
     
-    # Find markdown file
-    markdown_file = find_markdown_file(folder_path)
-    if not markdown_file:
-        print(f"Error: No markdown file found in folder '{folder_path}'")
+    # Find all markdown files
+    markdown_files = find_markdown_files(folder_path)
+    if not markdown_files:
+        print(f"Error: No markdown files found in folder '{folder_path}'")
         sys.exit(1)
     
-    print(f"Processing file: {markdown_file}")
+    print(f"Found {len(markdown_files)} markdown file(s) to process")
     
-    try:
-        # Parse the markdown file
-        color_dict, pixel_grid = parse_markdown_file(markdown_file)
-        
-        print(f"Found {len(color_dict)} colors: {list(color_dict.keys())}")
-        print(f"Pixel grid size: {len(pixel_grid)} rows, {max(len(row) for row in pixel_grid) if pixel_grid else 0} columns")
-        
-        # Generate output filename
-        output_filename = markdown_file.stem + '_pixel_icon.png'
-        output_path = folder_path / output_filename
-        
-        # Generate the pixel image
-        generate_pixel_image(color_dict, pixel_grid, output_path, args.pixel_size)
-        
-    except Exception as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+    # Process each markdown file
+    for markdown_file in markdown_files:
+        process_markdown_file(markdown_file, folder_path, pixel_size)
 
 
 if __name__ == '__main__':
