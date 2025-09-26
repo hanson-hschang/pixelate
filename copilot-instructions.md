@@ -68,10 +68,15 @@ The tool processes markdown files with this structure:
 - `mypy>=1.0.0` - Static type checking (dev dependency)
 - `types-toml` - Type stubs for TOML library
 - `types-Pillow` - Type stubs for Pillow/PIL library
+- `black>=23.0.0` - Code formatting (dev dependency)
+- `isort>=5.12.0` - Import sorting (dev dependency)
+- `flake8>=6.0.0` - Linting (dev dependency)
+- `bandit[toml]>=1.7.0` - Security checking (dev dependency)
+- `pre-commit>=3.0.0` - Pre-commit hooks (dev dependency)
 
 ### Testing
-- Run tests with: `python -m pytest tests/ -v`
-- Run type checking with: `mypy pixelate/ tests/`
+- Run tests with: `uv run python -m pytest tests/ -v`
+- Run type checking with: `uv run mypy pixelate/ tests/`
 - All classes have comprehensive test coverage
 - Tests use temporary files and proper cleanup
 - Use type hints in test code as well
@@ -79,22 +84,22 @@ The tool processes markdown files with this structure:
 ### Installation
 ```bash
 # Development installation with type checking dependencies
-pip install -e ".[dev]"
+uv sync --group dev
 ```
 
 ### Usage
 ```bash
 # Usage examples
-pixelate filename.md
-pixelate foldername/
-pixelate myfile.md --pixel-size 20 --format png
+uv run pixelate filename.md
+uv run pixelate foldername/
+uv run pixelate myfile.md --pixel-size 20 --format png
 ```
 
 ### Build & Package Management
-- Uses modern `pyproject.toml` configuration
+- Uses modern `pyproject.toml` configuration with uv for dependency management
 - Package built with setuptools
 - Entry point: `pixelate = "pixelate.cli:main"`
-- Supports Python 3.7+
+- Supports Python 3.9+
 
 ## When Making Changes
 
@@ -105,6 +110,11 @@ pixelate myfile.md --pixel-size 20 --format png
 5. **Handle errors gracefully** with user-friendly messages
 6. **Validate file formats** - ensure TOML frontmatter is properly parsed
 7. **Test with example files** in the `examples/` directory
+8. **Update dependencies consistently** - when adding or changing package dependencies:
+   - Update `pyproject.toml` [project.dependencies] or [project.optional-dependencies]
+   - Update `README.md` installation instructions
+   - Update this file's Key Dependencies section
+   - Update any relevant CI/CD configurations
 
 ## Common Tasks
 

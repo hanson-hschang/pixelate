@@ -4,41 +4,81 @@ A CLI tool that generates pixel art PNG images from markdown files with TOML fro
 
 ## Installation
 
+### Prerequisites
+This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management. Install uv first:
+
+```bash
+# Install uv with pip (recommended)
+pip install uv
+# or with curl: curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 ### From source
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-pip install .
-```
-
-### Development installation
-```bash
-git clone https://github.com/hanson-hschang/pixelate.git
-cd pixelate
-pip install -e ".[dev]"
+uv sync
 ```
 
 ## Development
 
+<details>
+<summary>Setup Development Environment</summary>
+
+For development, install with dev dependencies:
+```bash
+uv sync --group dev
+```
+
+This installs all required development tools:
+- pytest (testing framework)
+- mypy (static type checking)
+- types-toml, types-Pillow (type stubs)
+- black (code formatting)
+- isort (import sorting)
+- flake8 (linting)
+- bandit (security checking)
+- pre-commit (git hooks)
+</details>
+
+### Pre-commit Hooks
+This project uses pre-commit hooks to ensure code quality. Install them with:
+```bash
+uv run pre-commit install
+```
+
+The pre-commit hooks will automatically run:
+- Code formatting (black)
+- Import sorting (isort)
+- Linting (flake8)
+- Type checking (mypy)
+- Security checks (bandit)
+- Tests (pytest)
+
 ### Testing
 ```bash
 # Run tests
-python -m pytest tests/ -v
+uv run python -m pytest tests/ -v
 
 # Run type checking
-mypy pixelate/ tests/
+uv run mypy pixelate/ tests/
+
+# Run all quality checks manually
+uv run pre-commit run --all-files
 ```
 
-### Dependencies
-For development, install with dev dependencies:
-```bash
-pip install -e .[dev]
-```
+### Code Quality
+- **Formatting**: Code is automatically formatted with [black](https://black.readthedocs.io/)
+- **Import sorting**: Imports are sorted with [isort](https://pycqa.github.io/isort/)
+- **Linting**: Code is linted with [flake8](https://flake8.pycqa.org/)
+- **Type checking**: Static type checking with [mypy](https://mypy.readthedocs.io/)
+- **Security**: Security checks with [bandit](https://bandit.readthedocs.io/)
 
-Or install them individually:
-```bash
-pip install pytest mypy types-toml types-Pillow
-```
+### CI/CD
+This project uses GitHub Actions for continuous integration with separate workflows:
+- **Test workflow**: Tests run on Python 3.9-3.12, code quality checks (formatting, linting, type checking)
+- **Security workflow**: CodeQL security scanning with write permissions for security results
+- All checks must pass before merging to main branch
 
 ## Usage
 
