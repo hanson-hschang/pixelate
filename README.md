@@ -28,7 +28,7 @@ pip install -e .[dev]
 
 Or install them individually:
 ```bash
-pip install pytest mypy types-toml types-Pillow
+pip install pytest mypy types-toml types-Pillow black isort flake8 bandit pre-commit
 ```
 
 ### Pre-commit Hooks
