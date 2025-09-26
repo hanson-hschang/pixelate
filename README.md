@@ -1,11 +1,6 @@
 <div align=center>
   <h1>PIXELATE</h1>
 
-![Python](https://img.shields.io/badge/Python-3776AB?logo=Python&logoColor=white)
-![Pillow](https://img.shields.io/badge/Pillow-EE4C2C?logo=python&logoColor=white)
-![Click](https://img.shields.io/badge/Click-0E7E3E?logo=python&logoColor=white)
-![TOML](https://img.shields.io/badge/TOML-9C4121?logo=toml&logoColor=white)
-
 [![CI: pre-commit](https://img.shields.io/badge/CI-pre--commit-FAB040?logo=pre-commit)](https://pre-commit.com/)
 [![unit test: pytest](https://img.shields.io/badge/unit_test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
 [![code style: black](https://img.shields.io/badge/code_style-black-black)](https://github.com/psf/black)
@@ -13,7 +8,6 @@
 [![linting: flake8](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://flake8.pycqa.org/)
 [![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://bandit.readthedocs.io/)
-[![security: CodeQL](https://img.shields.io/badge/security-CodeQL-blue)](https://codeql.github.com/)
 
 [![Test](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml)
 [![Security](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml)
