@@ -69,11 +69,11 @@ jobs:
         # Test CLI help
         uv run pixelate --help
         # Test with example file
-        uv run pixelate examples/bird.md
+        uv run pixelate examples/pixelate.md
         # Verify output was created
-        ls -la examples/bird.png
+        ls -la examples/pixelate.png
         # Clean up
-        rm examples/bird.png
+        rm examples/pixelate.png
 
   security:
     name: Security Analysis

@@ -8,9 +8,9 @@ A CLI tool that generates pixel art PNG images from markdown files with TOML fro
 This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management. Install uv first:
 
 ```bash
-# Install uv (if not already installed)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-# or with pip: pip install uv
+# Install uv with pip (recommended)
+pip install uv
+# or with curl: curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### From source
