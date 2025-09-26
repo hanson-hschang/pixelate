@@ -76,11 +76,14 @@ The tool processes markdown files with this structure:
 - Tests use temporary files and proper cleanup
 - Use type hints in test code as well
 
-### Installation & Usage
+### Installation
 ```bash
 # Development installation with type checking dependencies
-pip install -e .[dev]
+pip install -e ".[dev]"
+```
 
+### Usage
+```bash
 # Usage examples
 pixelate filename.md
 pixelate foldername/

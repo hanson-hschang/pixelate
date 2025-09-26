@@ -15,7 +15,7 @@ pip install .
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-pip install -e .[dev]
+pip install -e ".[dev]"
 ```
 
 ## Development
