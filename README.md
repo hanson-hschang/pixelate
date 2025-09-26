@@ -15,7 +15,29 @@ pip install .
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-pip install -e .
+pip install -e ".[dev]"
+```
+
+## Development
+
+### Testing
+```bash
+# Run tests
+python -m pytest tests/ -v
+
+# Run type checking
+mypy pixelate/ tests/
+```
+
+### Dependencies
+For development, install with dev dependencies:
+```bash
+pip install -e .[dev]
+```
+
+Or install them individually:
+```bash
+pip install pytest mypy types-toml types-Pillow
 ```
 
 ## Usage
