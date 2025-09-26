@@ -1,4 +1,19 @@
-# PIXELATE
+<div align=center>
+  <h1>PIXELATE</h1>
+
+[![CI: pre-commit](https://img.shields.io/badge/CI-pre--commit-FAB040?logo=pre-commit)](https://pre-commit.com/)
+[![unit test: pytest](https://img.shields.io/badge/unit_test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
+[![code style: black](https://img.shields.io/badge/code_style-black-black)](https://github.com/psf/black)
+[![imports: isort](https://img.shields.io/badge/imports-isort-blue?labelColor=orange)](https://pycqa.github.io/isort/)
+[![linting: flake8](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://flake8.pycqa.org/)
+[![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://bandit.readthedocs.io/)
+
+[![Test](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml)
+[![Security](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-yellow)](https://opensource.org/licenses/MIT)
+
+</div>
 
 A CLI tool that generates pixel art PNG images from markdown files with TOML front-matter.
 
