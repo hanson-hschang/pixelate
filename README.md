@@ -4,20 +4,18 @@ A CLI tool that generates pixel art PNG images from markdown files with TOML fro
 
 ## Installation
 
-### Prerequisites
-This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management. Install uv first:
+### From GitHub
+Install directly from GitHub using pip:
 
 ```bash
-# Install uv with pip (recommended)
-pip install uv
-# or with curl: curl -LsSf https://astral.sh/uv/install.sh | sh
+pip install git+https://github.com/hanson-hschang/pixelate.git
 ```
 
 ### From source
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-uv sync
+pip install .
 ```
 
 ## Development
@@ -25,8 +23,20 @@ uv sync
 <details>
 <summary>Setup Development Environment</summary>
 
-For development, install with dev dependencies:
+### Prerequisites
+This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management during development. Install uv first:
+
 ```bash
+# Install uv with pip (recommended)
+pip install uv
+# or with curl: curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### Development Installation
+Clone the repository and install with dev dependencies:
+```bash
+git clone https://github.com/hanson-hschang/pixelate.git
+cd pixelate
 uv sync --group dev
 ```
 
@@ -39,10 +49,9 @@ This installs all required development tools:
 - flake8 (linting)
 - bandit (security checking)
 - pre-commit (git hooks)
-</details>
 
 ### Pre-commit Hooks
-This project uses pre-commit hooks to ensure code quality. Install them with:
+Install pre-commit hooks to ensure code quality:
 ```bash
 uv run pre-commit install
 ```
@@ -79,6 +88,8 @@ This project uses GitHub Actions for continuous integration with separate workfl
 - **Test workflow**: Tests run on Python 3.9-3.12, code quality checks (formatting, linting, type checking)
 - **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
+
+</details>
 
 ## Usage
 
