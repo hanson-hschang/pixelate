@@ -75,10 +75,9 @@ uv run pre-commit run --all-files
 - **Security**: Security checks with [bandit](https://bandit.readthedocs.io/)
 
 ### CI/CD
-This project uses GitHub Actions for continuous integration:
-- Tests run on Python 3.9-3.12
-- Code quality checks (formatting, linting, type checking)
-- Security scanning with CodeQL
+This project uses GitHub Actions for continuous integration with separate workflows:
+- **Test workflow**: Tests run on Python 3.9-3.12, code quality checks (formatting, linting, type checking)
+- **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
 
 ## Usage
