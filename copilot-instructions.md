@@ -99,7 +99,7 @@ pixelate myfile.md --pixel-size 20 --format png
 - Uses modern `pyproject.toml` configuration
 - Package built with setuptools
 - Entry point: `pixelate = "pixelate.cli:main"`
-- Supports Python 3.7+
+- Supports Python 3.8+
 
 ## When Making Changes
 

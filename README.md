@@ -20,16 +20,24 @@ pip install -e ".[dev]"
 
 ## Development
 
-### Setup
+<details>
+<summary>Setup Development Environment</summary>
+
 For development, install with dev dependencies:
 ```bash
 pip install -e .[dev]
 ```
 
-Or install them individually:
-```bash
-pip install pytest mypy types-toml types-Pillow black isort flake8 bandit pre-commit
-```
+This installs all required development tools:
+- pytest (testing framework)
+- mypy (static type checking)
+- types-toml, types-Pillow (type stubs)
+- black (code formatting)
+- isort (import sorting)
+- flake8 (linting)
+- bandit (security checking)
+- pre-commit (git hooks)
+</details>
 
 ### Pre-commit Hooks
 This project uses pre-commit hooks to ensure code quality. Install them with:
@@ -67,7 +75,7 @@ pre-commit run --all-files
 
 ### CI/CD
 This project uses GitHub Actions for continuous integration:
-- Tests run on Python 3.7-3.12
+- Tests run on Python 3.8-3.12
 - Code quality checks (formatting, linting, type checking)
 - Security scanning with CodeQL
 - All checks must pass before merging to main branch
