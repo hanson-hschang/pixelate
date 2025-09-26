@@ -4,18 +4,20 @@ A CLI tool that generates pixel art PNG images from markdown files with TOML fro
 
 ## Installation
 
+### Prerequisites
+This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management. Install uv first:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or with pip: pip install uv
+```
+
 ### From source
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-pip install .
-```
-
-### Development installation
-```bash
-git clone https://github.com/hanson-hschang/pixelate.git
-cd pixelate
-pip install -e ".[dev]"
+uv sync
 ```
 
 ## Development
@@ -25,7 +27,7 @@ pip install -e ".[dev]"
 
 For development, install with dev dependencies:
 ```bash
-pip install -e .[dev]
+uv sync --group dev
 ```
 
 This installs all required development tools:
@@ -42,8 +44,7 @@ This installs all required development tools:
 ### Pre-commit Hooks
 This project uses pre-commit hooks to ensure code quality. Install them with:
 ```bash
-pip install pre-commit
-pre-commit install
+uv run pre-commit install
 ```
 
 The pre-commit hooks will automatically run:
@@ -57,13 +58,13 @@ The pre-commit hooks will automatically run:
 ### Testing
 ```bash
 # Run tests
-python -m pytest tests/ -v
+uv run python -m pytest tests/ -v
 
 # Run type checking
-mypy pixelate/ tests/
+uv run mypy pixelate/ tests/
 
 # Run all quality checks manually
-pre-commit run --all-files
+uv run pre-commit run --all-files
 ```
 
 ### Code Quality
@@ -75,7 +76,7 @@ pre-commit run --all-files
 
 ### CI/CD
 This project uses GitHub Actions for continuous integration:
-- Tests run on Python 3.8-3.12
+- Tests run on Python 3.9-3.12
 - Code quality checks (formatting, linting, type checking)
 - Security scanning with CodeQL
 - All checks must pass before merging to main branch

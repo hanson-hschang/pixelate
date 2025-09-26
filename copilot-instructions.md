@@ -75,8 +75,8 @@ The tool processes markdown files with this structure:
 - `pre-commit>=3.0.0` - Pre-commit hooks (dev dependency)
 
 ### Testing
-- Run tests with: `python -m pytest tests/ -v`
-- Run type checking with: `mypy pixelate/ tests/`
+- Run tests with: `uv run python -m pytest tests/ -v`
+- Run type checking with: `uv run mypy pixelate/ tests/`
 - All classes have comprehensive test coverage
 - Tests use temporary files and proper cleanup
 - Use type hints in test code as well
@@ -84,22 +84,22 @@ The tool processes markdown files with this structure:
 ### Installation
 ```bash
 # Development installation with type checking dependencies
-pip install -e ".[dev]"
+uv sync --group dev
 ```
 
 ### Usage
 ```bash
 # Usage examples
-pixelate filename.md
-pixelate foldername/
-pixelate myfile.md --pixel-size 20 --format png
+uv run pixelate filename.md
+uv run pixelate foldername/
+uv run pixelate myfile.md --pixel-size 20 --format png
 ```
 
 ### Build & Package Management
-- Uses modern `pyproject.toml` configuration
+- Uses modern `pyproject.toml` configuration with uv for dependency management
 - Package built with setuptools
 - Entry point: `pixelate = "pixelate.cli:main"`
-- Supports Python 3.8+
+- Supports Python 3.9+
 
 ## When Making Changes
 

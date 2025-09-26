@@ -11,63 +11,65 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        enable-cache: true
+
+    - name: Set up Python ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
 
     - name: Install dependencies
       shell: bash
       run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
+        uv sync --group dev
 
     - name: Lint with flake8
       shell: bash
       run: |
         # Stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        uv run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # Exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --extend-ignore=E203,W503,D104,D107,D102,D200 --statistics
+        uv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --extend-ignore=E203,W503,D104,D107,D102,D200 --statistics
 
     - name: Check code formatting with black
       shell: bash
       run: |
-        black --check --diff .
+        uv run black --check --diff .
 
     - name: Check import sorting with isort
       shell: bash
       run: |
-        isort --check-only --diff --profile black .
+        uv run isort --check-only --diff --profile black .
 
     - name: Type check with mypy
       shell: bash
       run: |
-        mypy pixelate/ tests/
+        uv run mypy pixelate/ tests/
 
     - name: Security check with bandit
       shell: bash
       run: |
-        bandit -r pixelate/ -f json -o bandit-report.json || true
-        bandit -r pixelate/
+        uv run bandit -r pixelate/ -f json -o bandit-report.json || true
+        uv run bandit -r pixelate/
 
     - name: Test with pytest
       shell: bash
       run: |
-        python -m pytest tests/ -v --tb=short
+        uv run python -m pytest tests/ -v --tb=short
 
     - name: Test CLI functionality
       shell: bash
       run: |
         # Test CLI help
-        pixelate --help
+        uv run pixelate --help
         # Test with example file
-        pixelate examples/bird.md
+        uv run pixelate examples/bird.md
         # Verify output was created
         ls -la examples/bird.png
         # Clean up
