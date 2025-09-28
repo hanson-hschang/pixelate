@@ -167,8 +167,12 @@ In addition to hex color codes, the TOML frontmatter also supports named color p
 
 **Supported Palettes:**
 
-- **Tableau colors**: `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
+- **Tableau colors** (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
 
-- **XKCD colors**: `xkcd:red`, `xkcd:green`, `xkcd:blue`, `xkcd:yellow`, `xkcd:orange`, `xkcd:purple`, `xkcd:pink`, `xkcd:brown`, `xkcd:black`, `xkcd:white`, `xkcd:gray`, `xkcd:grey`, `xkcd:cyan`, `xkcd:magenta`, `xkcd:lime`, `xkcd:navy`, `xkcd:maroon`, `xkcd:teal`, `xkcd:olive`, `xkcd:drab`, `xkcd:tan`, `xkcd:beige`, `xkcd:coral`, `xkcd:salmon`, `xkcd:gold`, `xkcd:silver`, `xkcd:indigo`, `xkcd:violet`, `xkcd:turquoise`, `xkcd:crimson`, `xkcd:scarlet`, `xkcd:azure`, and more.
+- **CSS4 colors** (148 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
+
+- **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
+
+- **XKCD colors** (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
 
 See `examples/palette-demo.md` for a complete example using color palettes.

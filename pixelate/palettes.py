@@ -2,57 +2,59 @@
 Color palette definitions and utilities for the pixelate package.
 """
 
-from typing import Dict
+import toml
+from pathlib import Path
+from typing import Dict, List, Optional
 
-# Tableau color palette (based on Tableau's default color scheme)
-TABLEAU_COLORS: Dict[str, str] = {
-    "blue": "#1F77B4",
-    "orange": "#FF7F0E", 
-    "green": "#2CA02C",
-    "red": "#D62728",
-    "purple": "#9467BD",
-    "brown": "#8C564B",
-    "pink": "#E377C2",
-    "gray": "#7F7F7F",
-    "olive": "#BCBD22",
-    "cyan": "#17BECF",
-}
+# Path to the palette directory
+_PALETTE_DIR = Path(__file__).parent / "palette"
 
-# XKCD color survey colors (subset of most common/useful colors)
-XKCD_COLORS: Dict[str, str] = {
-    "red": "#E50000",
-    "green": "#15B01A",
-    "blue": "#0343DF",
-    "yellow": "#FFFF14",
-    "orange": "#F97306",
-    "purple": "#7E1E9C",
-    "pink": "#FF81C0",
-    "brown": "#653700",
-    "black": "#000000",
-    "white": "#FFFFFF",
-    "gray": "#929591",
-    "grey": "#929591",
-    "cyan": "#00FFFF",
-    "magenta": "#C20078",
-    "lime": "#AAFF32",
-    "navy": "#01153E",
-    "maroon": "#650021",
-    "teal": "#029386",
-    "olive": "#6E750E",
-    "drab": "#828344",
-    "tan": "#D1B26F",
-    "beige": "#E6DAA6",
-    "coral": "#FC5A50",
-    "salmon": "#FF796C",
-    "gold": "#FFD700",
-    "silver": "#C5C9C7",
-    "indigo": "#380282",
-    "violet": "#9A0EEA",
-    "turquoise": "#06C2AC",
-    "crimson": "#8C000F",
-    "scarlet": "#BE0119",
-    "azure": "#069AF3",
-}
+# Cache for loaded palettes to avoid repeated file I/O
+_palette_cache: Dict[str, Dict[str, str]] = {}
+
+
+def _load_palette(palette_name: str) -> Dict[str, str]:
+    """
+    Load a color palette from a TOML file.
+    
+    Args:
+        palette_name: Name of the palette (corresponds to filename without .toml)
+        
+    Returns:
+        Dictionary mapping color names to hex color codes
+        
+    Raises:
+        ValueError: If palette file doesn't exist or can't be loaded
+    """
+    if palette_name in _palette_cache:
+        return _palette_cache[palette_name]
+    
+    palette_file = _PALETTE_DIR / f"{palette_name}.toml"
+    
+    if not palette_file.exists():
+        available_palettes = [f.stem for f in _PALETTE_DIR.glob("*.toml")]
+        raise ValueError(f"Palette '{palette_name}' not found. Available palettes: {', '.join(sorted(available_palettes))}")
+    
+    try:
+        with open(palette_file, "r", encoding="utf-8") as f:
+            palette_data = toml.load(f)
+        _palette_cache[palette_name] = palette_data
+        return palette_data
+    except Exception as e:
+        raise ValueError(f"Error loading palette '{palette_name}': {e}")
+
+
+def get_available_palettes() -> List[str]:
+    """
+    Get list of available color palettes.
+    
+    Returns:
+        List of available palette names
+    """
+    if not _PALETTE_DIR.exists():
+        return []
+    
+    return sorted([f.stem for f in _PALETTE_DIR.glob("*.toml")])
 
 
 def resolve_color(color_value: str) -> str:
@@ -61,8 +63,7 @@ def resolve_color(color_value: str) -> str:
     
     Supports the following formats:
     - Hex colors: "#FF0000", "#FF000080" (with or without #)
-    - Tableau colors: "tableau:blue", "tableau:red"
-    - XKCD colors: "xkcd:drab", "xkcd:navy"
+    - Named palette colors: "tableau:blue", "xkcd:drab", "css4:red", "base:r"
     
     Args:
         color_value: Color specification string
@@ -87,24 +88,25 @@ def resolve_color(color_value: str) -> str:
     
     # Handle palette colors
     if ":" in color_value:
-        palette, color_name = color_value.split(":", 1)
-        palette = palette.lower()
+        palette_name, color_name = color_value.split(":", 1)
+        palette_name = palette_name.lower()
         color_name = color_name.lower()
         
-        if palette == "tableau":
-            if color_name not in TABLEAU_COLORS:
-                available = ", ".join(sorted(TABLEAU_COLORS.keys()))
-                raise ValueError(f"Unknown tableau color '{color_name}'. Available colors: {available}")
-            return TABLEAU_COLORS[color_name]
+        try:
+            palette = _load_palette(palette_name)
+        except ValueError as e:
+            raise ValueError(str(e))
         
-        elif palette == "xkcd":
-            if color_name not in XKCD_COLORS:
-                available = ", ".join(sorted(XKCD_COLORS.keys()))
-                raise ValueError(f"Unknown xkcd color '{color_name}'. Available colors: {available}")
-            return XKCD_COLORS[color_name]
+        if color_name not in palette:
+            available = ", ".join(sorted(palette.keys())[:10])  # Show first 10 for readability
+            more_count = len(palette) - 10
+            if more_count > 0:
+                available += f" (and {more_count} more)"
+            raise ValueError(f"Unknown {palette_name} color '{color_name}'. Available colors: {available}")
         
-        else:
-            raise ValueError(f"Unknown color palette '{palette}'. Supported palettes: tableau, xkcd")
+        return palette[color_name]
     
     # If we get here, the format is not recognized
-    raise ValueError(f"Unrecognized color format: {color_value}. Supported formats: hex (#FF0000), tableau:blue, xkcd:red")
+    available_palettes = get_available_palettes()
+    palette_examples = ", ".join([f"{p}:colorname" for p in available_palettes[:3]])
+    raise ValueError(f"Unrecognized color format: {color_value}. Supported formats: hex (#FF0000), {palette_examples}")
