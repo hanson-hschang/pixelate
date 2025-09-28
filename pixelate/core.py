@@ -9,6 +9,8 @@ from typing import Dict, List, Optional, Tuple
 import toml
 from PIL import Image, ImageDraw
 
+from .palettes import resolve_color
+
 
 class PixelArtParser:
     """Handles parsing of markdown files with TOML frontmatter and pixel data."""
@@ -42,8 +44,14 @@ class PixelArtParser:
         # Extract color dictionary
         color_dict: Dict[str, str] = {}
         for key, value in toml_data.items():
-            if isinstance(value, str) and value.startswith("#"):
-                color_dict[key] = value
+            if isinstance(value, str):
+                try:
+                    # Use the new resolve_color function to handle both hex and named colors
+                    resolved_color = resolve_color(value)
+                    color_dict[key] = resolved_color
+                except ValueError as e:
+                    print(f"Warning: {e}, skipping color definition '{key}' = '{value}'")
+                    continue
 
         # Parse CSV content (everything after the second +++)
         csv_content: str = "+++".join(parts[2:]).strip()
