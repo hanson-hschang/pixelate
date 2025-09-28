@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-Pixelate is a CLI tool that generates pixel art PNG images from markdown files with TOML front-matter. The tool processes markdown files containing color definitions in TOML format and CSV-like pixel grids to produce PNG images.
+Pixelate is a CLI tool that generates pixel art PNG images from markdown files with TOML front-matter. 
+The tool processes markdown files containing color definitions in TOML format and CSV-like pixel grids to produce PNG images.
+
 
 ## Repository Structure
 
@@ -35,7 +37,7 @@ pixelate/
 ## Development Guidelines
 
 ### Code Style
-- Use Python type hints throughout (already implemented)
+- Use Python type hints throughout the code base
 - Follow PEP 8 conventions
 - Use meaningful variable names with type annotations
 - Maintain docstrings for classes and public methods
@@ -45,20 +47,7 @@ pixelate/
 - **Separation of concerns**: Each class has a single responsibility
 - **Dependency injection**: Classes are composed, not tightly coupled
 - **Error handling**: Use try/catch blocks with meaningful error messages
-- **Path handling**: Use `pathlib.Path` for file operations (already implemented)
-
-### File Format Support
-The tool processes markdown files with this structure:
-```markdown
-+++
-"1" = "#FF0000"  # Red
-"0" = "#00000000"  # Transparent
-+++
-
-1,0,1
-0,1,0
-1,0,1
-```
+- **Path handling**: Use `pathlib.Path` for file operations
 
 ### Key Dependencies
 - `toml>=0.10.2` - TOML parsing
@@ -81,8 +70,23 @@ The tool processes markdown files with this structure:
 - Tests use temporary files and proper cleanup
 - Use type hints in test code as well
 
-### Installation
+### Markdown File Format Support
+The tool processes markdown files with this structure:
+```markdown
++++
+"1" = "#FF0000"  # Red
+"0" = "#00000000"  # Transparent
++++
+
+1,0,1
+0,1,0
+1,0,1
+```
+
+### Development Installation
 ```bash
+# Standard installation of uv
+pip install uv
 # Development installation with type checking dependencies
 uv sync --group dev
 ```
@@ -104,8 +108,8 @@ uv run pixelate myfile.md --pixel-size 20 --format png
 ## When Making Changes
 
 1. **Maintain backwards compatibility** for CLI interface
-2. **Add tests** for new functionality in `tests/test_pixelate.py`
-3. **Update documentation** in README.md if adding features
+2. **Add tests** for new functionality in `tests/`
+3. **Update documentation** in `README.md` if adding features
 4. **Use existing patterns** - follow the established class structure
 5. **Handle errors gracefully** with user-friendly messages
 6. **Validate file formats** - ensure TOML frontmatter is properly parsed
