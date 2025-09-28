@@ -151,3 +151,24 @@ The markdown file should have the following format:
 ```
 
 ![pixelate.png](examples/pixelate.png)
+
+### Color Palettes
+
+In addition to hex color codes, the TOML frontmatter also supports named color palettes:
+
+```markdown
++++
+# Using color palettes
+"1" = "tableau:blue"    # Tableau color scheme
+"2" = "xkcd:drab"      # XKCD color names  
+"0" = "#00000000"      # Hex colors still supported
++++
+```
+
+**Supported Palettes:**
+
+- **Tableau colors**: `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
+
+- **XKCD colors**: `xkcd:red`, `xkcd:green`, `xkcd:blue`, `xkcd:yellow`, `xkcd:orange`, `xkcd:purple`, `xkcd:pink`, `xkcd:brown`, `xkcd:black`, `xkcd:white`, `xkcd:gray`, `xkcd:grey`, `xkcd:cyan`, `xkcd:magenta`, `xkcd:lime`, `xkcd:navy`, `xkcd:maroon`, `xkcd:teal`, `xkcd:olive`, `xkcd:drab`, `xkcd:tan`, `xkcd:beige`, `xkcd:coral`, `xkcd:salmon`, `xkcd:gold`, `xkcd:silver`, `xkcd:indigo`, `xkcd:violet`, `xkcd:turquoise`, `xkcd:crimson`, `xkcd:scarlet`, `xkcd:azure`, and more.
+
+See `examples/palette-demo.md` for a complete example using color palettes.
