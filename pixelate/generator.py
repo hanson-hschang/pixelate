@@ -14,7 +14,7 @@ class ImageGenerator:
 
     def hex_to_rgba(self, hex_color: str) -> Tuple[int, int, int, int]:
         """Convert hex color string to RGBA tuple.
-        
+
         Args:
             hex_color: Hex color string (e.g. "#RRGGBB" or "#RRGGBBAA")
         Returns:

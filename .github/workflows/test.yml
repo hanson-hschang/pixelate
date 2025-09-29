@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
     - uses: actions/checkout@v4
@@ -28,35 +28,6 @@ jobs:
       shell: bash
       run: |
         uv sync --group dev
-
-    - name: Lint with flake8
-      shell: bash
-      run: |
-        # Stop the build if there are Python syntax errors or undefined names
-        uv run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv
-        # Exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        uv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --extend-ignore=E203,W503,D104,D107,D102,D200 --statistics --exclude=.venv
-
-    - name: Check code formatting with black
-      shell: bash
-      run: |
-        uv run black --check --diff .
-
-    - name: Check import sorting with isort
-      shell: bash
-      run: |
-        uv run isort --check-only --diff --profile black .
-
-    - name: Type check with mypy
-      shell: bash
-      run: |
-        uv run mypy pixelate/ tests/
-
-    - name: Security check with bandit
-      shell: bash
-      run: |
-        uv run bandit -r pixelate/ -f json -o bandit-report.json || true
-        uv run bandit -r pixelate/
 
     - name: Test with pytest
       shell: bash

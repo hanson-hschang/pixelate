@@ -1,4 +1,3 @@
-
 """
 Handles parsing of markdown files with TOML frontmatter and pixel data.
 """
@@ -13,9 +12,7 @@ from pixelate import palette
 class PixelArtParser:
     """Handles parsing of markdown files with TOML frontmatter and pixel data."""
 
-    def parse(
-        self, file_path: Path
-    ) -> tuple[Dict[str, str], List[List[str]]]:
+    def parse(self, file_path: Path) -> tuple[Dict[str, str], List[List[str]]]:
         """
         Parse a markdown file with TOML frontmatter and CSV content.
 
@@ -36,7 +33,9 @@ class PixelArtParser:
         color_dict = self._parse_color(parts[1].strip())
 
         # Parse CSV content (everything after the second +++)
-        pixel_grid = self._parse_grid("".join(parts[2:]).strip(), set(color_dict.keys()))
+        pixel_grid = self._parse_grid(
+            "".join(parts[2:]).strip(), set(color_dict.keys())
+        )
 
         return color_dict, pixel_grid
 
@@ -64,10 +63,11 @@ class PixelArtParser:
                     # Use the new resolve_color function to handle both hex and named colors
                     color_dict[key] = palette.resolve_color(color_name)
                 except ValueError as e:
-                    raise ValueError(f"Warning: {e}, color definition '{key}' = '{color_name}' is invalid")
-        
-        print(f"Found {len(color_dict)} colors:")
+                    raise ValueError(
+                        f"Warning: {e}, color definition '{key}' = '{color_name}' is invalid"
+                    )
 
+        print(f"Found {len(color_dict)} colors:")
 
         return color_dict
 
@@ -87,22 +87,24 @@ class PixelArtParser:
         total_cols = None
         for line in csv_content.split("\n"):
             line = line.strip()
-            
+
             # Skip empty lines
             if not line:
                 continue
 
             # Split by comma and clean up each cell
             row = [cell.strip() for cell in line.split(",")]
-            
+
             # Add all keys in this row to the set of keys found
             keys.update(row)
-            
+
             if total_cols is None:
                 total_cols = len(row)
             elif len(row) != total_cols:
-                raise ValueError(f"Inconsistent number of columns in pixel grid: expected {total_cols}, found {len(row)}")
-            
+                raise ValueError(
+                    f"Inconsistent number of columns in pixel grid: expected {total_cols}, found {len(row)}"
+                )
+
             pixel_grid.append(row)
 
         # Validate that all keys in the grid are defined in the color dictionary
@@ -112,4 +114,3 @@ class PixelArtParser:
         print(f"Pixel grid size: {len(pixel_grid)} rows, {len(pixel_grid[0])} columns")
 
         return pixel_grid
-        

@@ -1,17 +1,18 @@
 """
 Script to create color palette TOML files.
 
-This script creates TOML files for different color palettes that can be used by the pixelate package. 
+This script creates TOML files for different color palettes that can be used by the pixelate package.
 It converts matplotlib color definitions to hex format and saves them as TOML files.
 """
 
+from enum import Enum
+from pathlib import Path
 from typing import Dict
 
 import matplotlib.colors as mcolors
-from enum import Enum
-from pathlib import Path
 
 from pixelate.utility.bidict import BiDict
+
 
 class Palette:
     """Represents a color palette with methods to retrieve colors from various packages."""
@@ -25,7 +26,7 @@ class Palette:
     def from_package(package: str, name: str) -> BiDict:
         """
         Retrieve a color palette by package and name.
-        
+
         Args:
             package: Name of the color package (e.g., 'matplotlib')
             name: Name of the color palette within the package (e.g., 'tableau', 'css4', 'xkcd', 'base')
@@ -39,7 +40,7 @@ class Palette:
                 return Palette.from_matplotlib(name)
             case _:
                 raise ValueError(f"Unknown color package: {package}")
-    
+
     @staticmethod
     def from_matplotlib(name: str) -> BiDict:
         """
@@ -84,6 +85,7 @@ class Palette:
 
 class Palettes(Enum):
     """Enum for different color palettes."""
+
     TABLEAU = Palette.from_matplotlib("tableau")
     CSS4 = Palette.from_matplotlib("css4")
     XKCD = Palette.from_matplotlib("xkcd")
@@ -99,23 +101,25 @@ def main() -> None:
     """Generate TOML files for all color palettes."""
 
     # Define output directory for palette TOML files
-    PALETTE_ASSETS_DIR = Path(__file__).parent 
+    PALETTE_ASSETS_DIR = Path(__file__).parent
 
     for name, palette in Palettes.to_dict().items():
         # Create TOML file for each palette
-        with open(PALETTE_ASSETS_DIR / f"{name}.toml", 'w', encoding='utf-8') as f:
-            
+        with open(PALETTE_ASSETS_DIR / f"{name}.toml", "w", encoding="utf-8") as f:
+
             # Find the longest color name for formatting
             max_length = max(len(color_name) for color_name in palette.keys())
-            
+
             # Write each color to the TOML file
             for color_name in palette.keys():
-                f.write(f'"{color_name}"' + (' ' * (max_length - len(color_name))) + f' = "{palette[color_name].upper()}"\n')
+                f.write(
+                    f'"{color_name}"'
+                    + (" " * (max_length - len(color_name)))
+                    + f' = "{palette[color_name].upper()}"\n'
+                )
 
         print(f"Created {name}.toml with {len(palette)} colors")
 
-    
 
 if __name__ == "__main__":
     main()
-

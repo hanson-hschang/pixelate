@@ -1,4 +1,3 @@
-
 """
 Handles file and folder operations.
 """
@@ -45,9 +44,7 @@ class Pixelator:
             color_dict, pixel_grid = self._parser.parse(markdown_file)
 
             # Generate the pixel image
-            image = self._generator.generate(
-                color_dict, pixel_grid, pixel_size
-            )
+            image = self._generator.generate(color_dict, pixel_grid, pixel_size)
 
             # Generate output filename with same name as markdown file
             output_filename = markdown_file.stem + f".{format}"
@@ -58,7 +55,6 @@ class Pixelator:
             # Save the image
             image.save(output_path, format.upper())
             print(f"Pixel icon saved to: {output_path}")
-
 
         except Exception as e:
             print(f"Error processing {markdown_file}: {e}")

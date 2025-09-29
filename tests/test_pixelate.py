@@ -56,7 +56,7 @@ class TestPixelArtParser:
 
     def test_parse_markdown_with_named_colors(self) -> None:
         """Test parsing markdown with named colors from palettes."""
-        content = '''+++
+        content = """+++
 "1" = "tableau:blue"
 "2" = "xkcd:drab"
 "0" = "#00000000"
@@ -65,22 +65,22 @@ class TestPixelArtParser:
 1,2,0
 0,1,2
 2,0,1
-'''
-        
+"""
+
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
             f.write(content)
             temp_file = Path(f.name)
-            
+
         try:
             parser = PixelArtParser()
             color_dict, pixel_grid = parser.parse(temp_file)
-            
+
             # Check that named colors are resolved to hex codes
             assert color_dict["1"] == "#1F77B4"  # tableau:blue
             assert color_dict["2"] == "#828344"  # xkcd:drab
             assert color_dict["0"] == "#00000000"  # hex color
             assert pixel_grid == [["1", "2", "0"], ["0", "1", "2"], ["2", "0", "1"]]
-            
+
         finally:
             # Cleanup
             if temp_file.exists():

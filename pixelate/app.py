@@ -31,9 +31,9 @@ class PixelateApp:
             sys.exit(1)
 
         # Process single markdown file
-        if input_path.is_file() and input_path.suffix.lower() == ".md":           
+        if input_path.is_file() and input_path.suffix.lower() == ".md":
             self._pixelator.process(input_path, None, pixel_size, format)
-        
+
         # Process all markdown files in folder
         elif input_path.is_dir():
             # Find all markdown files
@@ -50,5 +50,7 @@ class PixelateApp:
 
         # Invalid input path
         else:
-            print(f"Error: Path '{input_path_name}' is neither a markdown file nor a directory")
+            print(
+                f"Error: Path '{input_path_name}' is neither a markdown file nor a directory"
+            )
             sys.exit(1)

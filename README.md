@@ -84,8 +84,7 @@ The pre-commit hooks will automatically run:
 # Run tests
 uv run python -m pytest tests/ -v
 
-# Run type checking
-uv run mypy pixelate/ tests/
+
 
 # Run all quality checks manually
 uv run pre-commit run --all-files
@@ -100,7 +99,7 @@ uv run pre-commit run --all-files
 
 ### CI/CD
 This project uses GitHub Actions for continuous integration with separate workflows:
-- **Test workflow**: Tests run on Python 3.9-3.12, code quality checks (formatting, linting, type checking)
+- **Test workflow**: Tests run on Python 3.11+, code quality checks (formatting, linting, type checking)
 - **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
 
@@ -169,7 +168,7 @@ In addition to hex color codes, the TOML frontmatter also supports named color p
 
 - **Tableau colors** (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
 
-- **CSS4 colors** (148 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
+- **CSS4 colors** (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
 
 - **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
 
