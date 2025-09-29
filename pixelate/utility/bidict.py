@@ -1,8 +1,8 @@
-from typing import Dict, Set
-
-
 class BiDict:
-    """A bidirectional dictionary allowing lookups from key to value and value to key."""
+    """
+    A bidirectional dictionary allowing lookups from key to value and value to key.
+    Both keys and values must be unique and cannot be the same.
+    """
 
     def __init__(self, **kwargs: str) -> None:
         self._dictionary: dict[str, str] = {}

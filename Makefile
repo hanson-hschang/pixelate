@@ -7,59 +7,70 @@ PYTHONPATH := `pwd`
 install:
 	uv sync
 
-#* Installation with developer tools
-.PHONY: install-dev
-install-dev:
-	uv sync --group dev
+.PHONY: install-dev-deps
+install-dev-deps:
+	uv sync --all-groups --all-extras
 
-#* Installation of pre-commit: tool of Git hook scripts
-.PHONY: install-pre-commit
-install-pre-commit:
-	uv run pre-commit install
 
-#* Unittests
-.PHONY: test
-test:
-	uv run pytest -c pyproject.toml --cov=src --cov-branch --cov-report=xml --cov-report=term
+.PHONY: build
+build:
+	uv build
+
+.PHONY: pre-commit-install
+pre-commit-install:
+	pre-commit install
 
 #* Formatters
+.PHONY: black
+black:
+	uv run black --version
+	uv run black --config pyproject.toml pixelate tests examples
+
+.PHONY: black-check
+black-check:
+	uv run black --version
+	uv run black --diff --check --config pyproject.toml pixelate tests examples
+
+.PHONY: flake8
+flake8:
+	uv run flake8 --version
+	uv run flake8 pixelate tests
+
+.PHONY: autoflake-check
+autoflake-check:
+	uv run autoflake --version
+	uv run autoflake --check -r pixelate tests examples
+
+.PHONY: autoflake-format
+autoflake-format:
+	uv run autoflake --version
+	uv run autoflake --in-place -r pixelate tests examples
+	uv run autoflake --in-place --remove-all-unused-imports -r pixelate tests examples
+
+.PHONY: format-codestyle
+format-codestyle: black autoflake-format
+
+.PHONY: mypy
+mypy:
+	uv run mypy --config-file pyproject.toml pixelate  # Main
+
+.PHONY: test
+test:
+	uv run pytest -c pyproject.toml
+
+.PHONY: test_coverage
+test_coverage:
+	NUMBA_DISABLE_JIT=1 uv run pytest --cov=pixelate -c pyproject.toml
+
+.PHONY: test_coverage_xml
+test_coverage_xml:
+	NUMBA_DISABLE_JIT=1 uv run pytest --cov=pixelate --cov-report=xml -c pyproject.toml
+
+.PHONY: check-codestyle
+check-codestyle: black-check flake8 autoflake-check
+
 .PHONY: formatting
-formatting:
-	uv run pyupgrade --exit-zero-even-if-changed --py311-plus pixelate/**/*.py
-	uv run isort --settings-path pyproject.toml ./
-	uv run black --config pyproject.toml ./
-	uv run mypy --config-file pyproject.toml ./
-	uv run flake8 --config pyproject.toml ./
-
-#* Linting
-.PHONY: check-test
-check-test:
-	uv run pytest -c pyproject.toml --cov=src
-
-.PHONY: check-formatting
-check-formatting:
-	uv run isort --diff --check-only --settings-path pyproject.toml ./
-	uv run black --diff --check --config pyproject.toml ./
-	uv run mypy --config-file pyproject.toml ./
-
-.PHONY: lint
-lint: check-formatting check-test
-
-#* Update developer tools
-.PHONY: update-dev
-update-dev:
-	uv add --group dev \
-    "isort[colors]" \
-    mypy \
-    pre-commit \
-    pytest \
-    pyupgrade \
-    coverage \
-    pytest-html \
-    pytest-cov \
-    black \
-    pydocstyle \
-    pylint
+formatting: format-codestyle
 
 #* Cleaning
 .PHONY: pycache-remove
@@ -84,7 +95,11 @@ pytestcache-remove:
 
 .PHONY: build-remove
 build-remove:
-	rm -rf build/
+	rm -rf build/ dist/
 
 .PHONY: cleanup
-cleanup: pycache-remove dsstore-remove mypycache-remove ipynbcheckpoints-remove pytestcache-remove
+cleanup: pycache-remove dsstore-remove ipynbcheckpoints-remove pytestcache-remove mypycache-remove build-remove
+
+all: format-codestyle cleanup test
+
+ci: check-codestyle

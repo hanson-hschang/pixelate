@@ -1,7 +1,7 @@
 """
 Script to create color palette TOML files.
 
-This script creates TOML files for different color palettes that can be used by the pixelate package.
+This script creates TOML files for different color palettes.
 It converts matplotlib color definitions to hex format and saves them as TOML files.
 """
 
@@ -15,7 +15,9 @@ from pixelate.utility.bidict import BiDict
 
 
 class Palette:
-    """Represents a color palette with methods to retrieve colors from various packages."""
+    """
+    Represents a color palette with methods to retrieve colors from various packages.
+    """
 
     def __init__(self, package: str, name: str) -> None:
         self._package = package
@@ -29,7 +31,7 @@ class Palette:
 
         Args:
             package: Name of the color package (e.g., 'matplotlib')
-            name: Name of the color palette within the package (e.g., 'tableau', 'css4', 'xkcd', 'base')
+            name: Name of the color palette within the package
         Returns:
             Dictionary mapping color names to their hex color codes
         Raises:
@@ -47,7 +49,7 @@ class Palette:
         Retrieve a matplotlib color palette by name.
 
         Args:
-            name: Name of the matplotlib color palette (e.g., 'tableau', 'css4', 'xkcd', 'base')
+            name: Name of the matplotlib color palette (e.g., 'base', 'tableau', ...)
 
         Returns:
             Dictionary mapping color names to their hex color codes

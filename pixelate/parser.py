@@ -60,11 +60,11 @@ class PixelArtParser:
         for key, color_name in toml_data.items():
             if isinstance(color_name, str):
                 try:
-                    # Use the new resolve_color function to handle both hex and named colors
                     color_dict[key] = palette.resolve_color(color_name)
                 except ValueError as e:
                     raise ValueError(
-                        f"Warning: {e}, color definition '{key}' = '{color_name}' is invalid"
+                        f"Warning: {e}, "
+                        f"color definition '{key}' = '{color_name}' is invalid"
                     )
 
         print(f"Found {len(color_dict)} colors:")
@@ -102,7 +102,8 @@ class PixelArtParser:
                 total_cols = len(row)
             elif len(row) != total_cols:
                 raise ValueError(
-                    f"Inconsistent number of columns in pixel grid: expected {total_cols}, found {len(row)}"
+                    f"Inconsistent number of columns in pixel grid: "
+                    f"expected {total_cols}, found {len(row)}"
                 )
 
             pixel_grid.append(row)

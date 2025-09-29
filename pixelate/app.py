@@ -51,6 +51,7 @@ class PixelateApp:
         # Invalid input path
         else:
             print(
-                f"Error: Path '{input_path_name}' is neither a markdown file nor a directory"
+                f"Error: Path '{input_path_name}' is "
+                f"neither a markdown file nor a directory"
             )
             sys.exit(1)

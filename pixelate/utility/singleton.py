@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, cast
+from typing import Any, TypeVar, cast
 
 T = TypeVar("T", bound="SingletonMeta")
 

@@ -6,8 +6,6 @@ from typing import Dict, List, Tuple
 
 from PIL import Image, ImageDraw
 
-from pixelate.utility.bidict import BiDict
-
 
 class ImageGenerator:
     """Handles generating images from pixel data."""

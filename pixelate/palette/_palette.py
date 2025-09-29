@@ -5,7 +5,6 @@ Color palette definitions and utilities for the pixelate package.
 import tomllib
 from importlib import resources
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 from pixelate.utility.bidict import BiDict
 from pixelate.utility.singleton import SingletonMeta
@@ -16,28 +15,16 @@ class Palettes(metaclass=SingletonMeta):
 
     def __init__(self) -> None:
         self._palettes: dict[str, BiDict] = {}
-        # Use files() to access palette assets
-        palette_files = resources.files("pixelate.palette.assets")
+
         # Get all TOML files from the assets directory
-        for item in palette_files.iterdir():
-            if item.name.endswith(".toml"):
-                palette_name = item.stem
-                # Read the file content directly
-                with item.open("rb") as f:
-                    palette_data = tomllib.load(f)
-                self._palettes[palette_name] = self._load_palette_from_dict(palette_data)
-
-    def _load_palette_from_dict(self, palette_data: Dict[str, str]) -> BiDict:
-        """
-        Load a color palette from a dictionary.
-
-        Args:
-            palette_data: Dictionary with color name to hex color code mappings
-
-        Returns:
-            Bidirectional dictionary mapping color names to hex color codes
-        """
-        return BiDict(**palette_data)
+        palette_assets = resources.files("pixelate.palette.assets")
+        for file_path in palette_assets.iterdir():
+            if not file_path.name.endswith(".toml"):
+                continue
+            with resources.as_file(file_path) as palette_file_path:
+                self._palettes[palette_file_path.stem] = self._load_palette(
+                    palette_file_path
+                )
 
     def _load_palette(self, palette_file_path: Path) -> BiDict:
         """
@@ -65,7 +52,8 @@ class Palettes(metaclass=SingletonMeta):
     def __getitem__(self, palette_name: str) -> BiDict:
         if palette_name not in self._palettes:
             raise ValueError(
-                f"Palette '{palette_name}' not found. Available palettes: {', '.join(self._palettes.keys())}"
+                f"Palette '{palette_name}' not found. "
+                f"Available palettes: {', '.join(self._palettes.keys())}"
             )
         return self._palettes[palette_name]
 
@@ -121,5 +109,6 @@ def resolve_color(color_value: str) -> str:
     # If we get here, the format is not recognized
     palette_examples = ", ".join([f"{p}:colorname" for p in PALETTES.names])
     raise ValueError(
-        f"Unrecognized color format: {color_value}. Supported formats: hex (#FF0000), {palette_examples}"
+        f"Unrecognized color format: {color_value}. "
+        f"Supported formats: hex (#FF0000), {palette_examples}"
     )

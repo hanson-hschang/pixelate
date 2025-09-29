@@ -2,9 +2,8 @@
 Handles file and folder operations.
 """
 
-import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Optional
 
 from pixelate.generator import ImageGenerator
 from pixelate.parser import PixelArtParser
