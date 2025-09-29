@@ -16,7 +16,7 @@ install-dev-deps:
 build:
 	uv build
 
-.PHONY: pre-commit-install
+.PHONY: install-pre-commit
 pre-commit-install:
 	pre-commit install
 
