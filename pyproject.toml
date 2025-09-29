@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [dependency-groups]
 dev = [
+    "pyupgrade>=3.15.2",
     "pytest>=8.0.0",
     "mypy>=1.0.0",
     "types-toml",
@@ -13,6 +14,7 @@ dev = [
     "flake8>=6.0.0",
     "bandit[toml]>=1.7.0",
     "pre-commit>=3.0.0",
+    "autoflake",
 ]
 
 [project]
@@ -24,24 +26,23 @@ authors = [
 description = "A CLI tool that generates pixel art PNG images from markdown files with TOML front-matter"
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Multimedia :: Graphics",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "toml>=0.10.2",
     "pillow>=10.0.0",
     "click>=8.0.0",
+    "matplotlib",
 ]
 
 [project.optional-dependencies]
@@ -74,7 +75,7 @@ python_files = ["test_*.py"]
 addopts = "-v"
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

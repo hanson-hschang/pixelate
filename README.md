@@ -91,6 +91,24 @@ uv run mypy pixelate/ tests/
 uv run pre-commit run --all-files
 ```
 
+### Fixing Code Formatting Issues
+
+If you encounter formatting issues during development or in CI/CD, use these commands to automatically fix them:
+
+```bash
+# Fix all formatting issues at once
+make formatting
+
+# Or run individual formatters:
+uv run black --config pyproject.toml ./          # Fix code formatting
+uv run isort --settings-path pyproject.toml ./  # Fix import sorting
+uv run pyupgrade --py311-plus pixelate/**/*.py  # Upgrade syntax to Python 3.11+
+
+# Check what would be changed without making changes:
+uv run black --diff --check --config pyproject.toml ./
+uv run isort --diff --check-only --settings-path pyproject.toml ./
+```
+
 ### Code Quality
 - **Formatting**: Code is automatically formatted with [black](https://black.readthedocs.io/)
 - **Import sorting**: Imports are sorted with [isort](https://pycqa.github.io/isort/)
@@ -100,7 +118,7 @@ uv run pre-commit run --all-files
 
 ### CI/CD
 This project uses GitHub Actions for continuous integration with separate workflows:
-- **Test workflow**: Tests run on Python 3.9-3.12, code quality checks (formatting, linting, type checking)
+- **Test workflow**: Tests run on Python 3.11+, code quality checks (formatting, linting, type checking)
 - **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
 
@@ -151,3 +169,28 @@ The markdown file should have the following format:
 ```
 
 ![pixelate.png](examples/pixelate.png)
+
+### Color Palettes
+
+In addition to hex color codes, the TOML frontmatter also supports named color palettes:
+
+```markdown
++++
+# Using color palettes
+"1" = "tableau:blue"    # Tableau color scheme
+"2" = "xkcd:drab"      # XKCD color names  
+"0" = "#00000000"      # Hex colors still supported
++++
+```
+
+**Supported Palettes:**
+
+- **Tableau colors** (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
+
+- **CSS4 colors** (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
+
+- **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
+
+- **XKCD colors** (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
+
+See `examples/palette-demo.md` for a complete example using color palettes.
