@@ -1,17 +1,23 @@
 <div align=center>
   <h1>PIXELATE</h1>
 
-[![CI: pre-commit](https://img.shields.io/badge/CI-pre--commit-FAB040?logo=pre-commit)](https://pre-commit.com/)
-[![unit test: pytest](https://img.shields.io/badge/unit_test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
-[![code style: black](https://img.shields.io/badge/code_style-black-black)](https://github.com/psf/black)
-[![imports: isort](https://img.shields.io/badge/imports-isort-blue?labelColor=orange)](https://pycqa.github.io/isort/)
-[![linting: flake8](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://flake8.pycqa.org/)
-[![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
-[![security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://bandit.readthedocs.io/)
-
 [![Test](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml)
+[![Lint](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml)
 [![Security](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-yellow)](https://opensource.org/licenses/MIT)
+
+[![package: uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://docs.astral.sh/uv/)
+[![CI/CD: pre-commit](https://img.shields.io/badge/CI/CD-pre--commit-FAB040?logo=pre-commit)](https://pre-commit.com/)
+[![unit test: pytest](https://img.shields.io/badge/unit_test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
+[![linting: flake8](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://flake8.pycqa.org/)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://bandit.readthedocs.io/)
+
+[![syntax: pyupgrade](https://img.shields.io/badge/syntax-pyupgrade-0A9EDC?logo=pyupgrade)](https://github.com/pyupgrade/pyupgrade)
+[![code style: black](https://img.shields.io/badge/code_style-black-black)](https://github.com/psf/black)
+[![imports: isort](https://img.shields.io/badge/imports-isort-blue?labelColor=orange)](https://pycqa.github.io/isort/)
+[![unused: autoflake](https://img.shields.io/badge/unused-autoflake-blue)](https://github.com/myint/autoflake)
+[![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
+
 
 </div>
 
@@ -39,12 +45,11 @@ pip install .
 <summary>Setup Development Environment</summary>
 
 ### Prerequisites
-This project uses [uv](https://github.com/astral-sh/uv) for fast, reliable Python package management during development. Install uv first:
+This project uses uv for fast, reliable Python package management during development. Install uv first:
 
 ```bash
-# Install uv with pip (recommended)
+# Install uv with pip
 pip install uv
-# or with curl: curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### Development Installation
@@ -52,16 +57,18 @@ Clone the repository and install with dev dependencies:
 ```bash
 git clone https://github.com/hanson-hschang/pixelate.git
 cd pixelate
-uv sync --group dev
+uv sync --all-groups --all-extras
 ```
 
 This installs all required development tools:
 - pytest (testing framework)
+- pyupgrade (syntax upgrades)
 - mypy (static type checking)
 - types-toml, types-Pillow (type stubs)
 - black (code formatting)
 - isort (import sorting)
 - flake8 (linting)
+- autoflake (remove unused imports)
 - bandit (security checking)
 - pre-commit (git hooks)
 
@@ -71,25 +78,13 @@ Install pre-commit hooks to ensure code quality:
 uv run pre-commit install
 ```
 
-The pre-commit hooks will automatically run:
-- Code formatting (black)
-- Import sorting (isort)
-- Linting (flake8)
-- Type checking (mypy)
-- Security checks (bandit)
-- Tests (pytest)
-
 ### Testing
+Run tests with pytest:
 ```bash
 # Run tests
 uv run python -m pytest tests/ -v
-
-# Run type checking
-uv run mypy pixelate/ tests/
-
-# Run all quality checks manually
-uv run pre-commit run --all-files
 ```
+
 
 ### Fixing Code Formatting Issues
 
@@ -118,7 +113,8 @@ uv run isort --diff --check-only --settings-path pyproject.toml ./
 
 ### CI/CD
 This project uses GitHub Actions for continuous integration with separate workflows:
-- **Test workflow**: Tests run on Python 3.11+, code quality checks (formatting, linting, type checking)
+- **Test workflow**: Tests run on Python 3.11+
+- **Formatting workflow**: Ensures code adheres to formatting standards
 - **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
 
@@ -167,8 +163,10 @@ The markdown file should have the following format:
 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0
 1,0,0,0,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,1
 ```
+<div align=center>
 
-![pixelate.png](examples/pixelate.png)
+  ![pixelate.png](examples/pixelate.png)
+</div>
 
 ### Color Palettes
 

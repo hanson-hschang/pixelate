@@ -1,4 +1,4 @@
-name: Format
+name: Lint
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  format:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
