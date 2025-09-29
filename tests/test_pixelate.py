@@ -8,7 +8,10 @@ from typing import Generator
 
 import pytest
 
-from pixelate.core import FileProcessor, ImageGenerator, PixelArtParser, PixelateApp
+from pixelate.app import PixelateApp
+from pixelate.generator import ImageGenerator
+from pixelate.parser import PixelArtParser
+from pixelate.pixelator import Pixelator
 
 
 @pytest.fixture
@@ -46,7 +49,7 @@ class TestPixelArtParser:
 
     def test_parse_markdown_file(self, temp_md_file: Path) -> None:
         parser: PixelArtParser = PixelArtParser()
-        color_dict, pixel_grid = parser.parse_markdown_file(temp_md_file)
+        color_dict, pixel_grid = parser.parse(temp_md_file)
 
         assert color_dict == {"1": "#FF0000", "0": "#00000000"}
         assert pixel_grid == [["1", "0", "1"], ["0", "1", "0"], ["1", "0", "1"]]
@@ -70,7 +73,7 @@ class TestPixelArtParser:
             
         try:
             parser = PixelArtParser()
-            color_dict, pixel_grid = parser.parse_markdown_file(temp_file)
+            color_dict, pixel_grid = parser.parse(temp_file)
             
             # Check that named colors are resolved to hex codes
             assert color_dict["1"] == "#1F77B4"  # tableau:blue
@@ -102,10 +105,12 @@ class TestImageGenerator:
         generator: ImageGenerator = ImageGenerator()
         parser: PixelArtParser = PixelArtParser()
 
-        color_dict, pixel_grid = parser.parse_markdown_file(temp_md_file)
+        color_dict, pixel_grid = parser.parse(temp_md_file)
         output_path: Path = temp_md_file.with_suffix(".png")
 
-        generator.generate_pixel_image(color_dict, pixel_grid, output_path)
+        image = generator.generate(color_dict, pixel_grid, pixel_size=10)
+
+        image.save(output_path, format="png")
 
         assert output_path.exists()
         # Cleanup
@@ -116,9 +121,9 @@ class TestFileProcessor:
     """Test the FileProcessor class."""
 
     def test_process_markdown_file(self, temp_md_file: Path) -> None:
-        processor: FileProcessor = FileProcessor()
+        processor: Pixelator = Pixelator()
 
-        processor.process_markdown_file(temp_md_file)
+        processor.process(temp_md_file)
 
         output_path: Path = temp_md_file.with_suffix(".png")
         assert output_path.exists()
@@ -133,7 +138,7 @@ class TestPixelateApp:
     def test_run_single_file(self, temp_md_file: Path) -> None:
         app: PixelateApp = PixelateApp()
 
-        app.run(str(temp_md_file))
+        app.run(str(temp_md_file), pixel_size=10, format="png")
 
         output_path: Path = temp_md_file.with_suffix(".png")
         assert output_path.exists()
@@ -144,7 +149,7 @@ class TestPixelateApp:
     def test_run_folder(self, temp_md_file: Path) -> None:
         app: PixelateApp = PixelateApp()
 
-        app.run(str(temp_md_file.parent))
+        app.run(str(temp_md_file.parent), pixel_size=10, format="png")
 
         output_path: Path = temp_md_file.with_suffix(".png")
         assert output_path.exists()

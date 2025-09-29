@@ -5,7 +5,7 @@ Command line interface for the pixelate package.
 
 import click
 
-from .core import PixelateApp
+from pixelate.app import PixelateApp
 
 
 @click.command()

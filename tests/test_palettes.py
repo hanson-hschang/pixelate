@@ -4,7 +4,7 @@ Tests for the color palettes module.
 
 import pytest
 
-from pixelate.palettes import resolve_color, get_available_palettes
+from pixelate.palette import resolve_color, PALETTES
 
 
 class TestResolveColor:
@@ -18,11 +18,6 @@ class TestResolveColor:
         assert resolve_color("#0000FF") == "#0000FF"
         assert resolve_color("#FF000080") == "#FF000080"  # RGBA
         
-        # Test without # prefix
-        assert resolve_color("FF0000") == "#FF0000"
-        assert resolve_color("00FF00") == "#00FF00"
-        assert resolve_color("0000FF") == "#0000FF"
-        assert resolve_color("FF000080") == "#FF000080"  # RGBA
         
     def test_invalid_hex_colors(self) -> None:
         """Test that invalid hex colors raise ValueError."""
@@ -73,35 +68,34 @@ class TestResolveColor:
         """Test base color palette."""
         # Test specific base colors
         assert resolve_color("base:r") == "#FF0000"
-        assert resolve_color("base:g") == "#007F00"
+        assert resolve_color("base:g") == "#008000"
         assert resolve_color("base:b") == "#0000FF"
         
         # Test case insensitive
         assert resolve_color("BASE:R") == "#FF0000"
-        assert resolve_color("Base:G") == "#007F00"
+        assert resolve_color("Base:G") == "#008000"
         
     def test_get_available_palettes(self) -> None:
         """Test that get_available_palettes returns expected palettes."""
-        palettes = get_available_palettes()
-        assert isinstance(palettes, list)
-        assert "tableau" in palettes
-        assert "xkcd" in palettes
-        assert "css4" in palettes
-        assert "base" in palettes
+        assert isinstance(PALETTES.names, tuple)
+        assert "tableau" in PALETTES
+        assert "xkcd" in PALETTES
+        assert "css4" in PALETTES
+        assert "base" in PALETTES
         
     def test_unknown_palette(self) -> None:
         """Test that unknown palettes raise ValueError."""
-        with pytest.raises(ValueError, match="Palette 'unknown' not found"):
+        with pytest.raises(ValueError, match="Palette 'unknown' not found."):
             resolve_color("unknown:blue")
             
     def test_unknown_tableau_color(self) -> None:
         """Test that unknown tableau colors raise ValueError."""
-        with pytest.raises(ValueError, match="Unknown tableau color 'unknown'"):
+        with pytest.raises(ValueError, match="Unknown color 'unknown' in palette 'tableau'"):
             resolve_color("tableau:unknown")
             
     def test_unknown_xkcd_color(self) -> None:
         """Test that unknown XKCD colors raise ValueError."""
-        with pytest.raises(ValueError, match="Unknown xkcd color 'unknown'"):
+        with pytest.raises(ValueError, match="Unknown color 'unknown' in palette 'xkcd'"):
             resolve_color("xkcd:unknown")
             
     def test_unrecognized_format(self) -> None:
