@@ -84,10 +84,29 @@ The pre-commit hooks will automatically run:
 # Run tests
 uv run python -m pytest tests/ -v
 
-
+# Run type checking
+uv run mypy pixelate/ tests/
 
 # Run all quality checks manually
 uv run pre-commit run --all-files
+```
+
+### Fixing Code Formatting Issues
+
+If you encounter formatting issues during development or in CI/CD, use these commands to automatically fix them:
+
+```bash
+# Fix all formatting issues at once
+make formatting
+
+# Or run individual formatters:
+uv run black --config pyproject.toml ./          # Fix code formatting
+uv run isort --settings-path pyproject.toml ./  # Fix import sorting
+uv run pyupgrade --py311-plus pixelate/**/*.py  # Upgrade syntax to Python 3.11+
+
+# Check what would be changed without making changes:
+uv run black --diff --check --config pyproject.toml ./
+uv run isort --diff --check-only --settings-path pyproject.toml ./
 ```
 
 ### Code Quality

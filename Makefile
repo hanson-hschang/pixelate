@@ -5,44 +5,42 @@ PYTHONPATH := `pwd`
 #* Installation
 .PHONY: install
 install:
-	python -m pip install --upgrade pip
-	python -m pip install -e .
+	uv sync
 
 #* Installation with developer tools
 .PHONY: install-dev
 install-dev:
-	python -m pip install --upgrade pip
-	python -m pip install -e ".[dev]"
+	uv sync --group dev
 
 #* Installation of pre-commit: tool of Git hook scripts
 .PHONY: install-pre-commit
 install-pre-commit:
-	pre-commit install
+	uv run pre-commit install
 
 #* Unittests
 .PHONY: test
 test:
-	pytest -c pyproject.toml --cov=src --cov-branch --cov-report=xml --cov-report=term
+	uv run pytest -c pyproject.toml --cov=src --cov-branch --cov-report=xml --cov-report=term
 
 #* Formatters
 .PHONY: formatting
 formatting:
-	pyupgrade --exit-zero-even-if-changed --py311-plus pixelate/**/*.py
-	isort --settings-path pyproject.toml ./
-	black --config pyproject.toml ./
-	mypy --config-file pyproject.toml ./
-	flake8 --config pyproject.toml ./
+	uv run pyupgrade --exit-zero-even-if-changed --py311-plus pixelate/**/*.py
+	uv run isort --settings-path pyproject.toml ./
+	uv run black --config pyproject.toml ./
+	uv run mypy --config-file pyproject.toml ./
+	uv run flake8 --config pyproject.toml ./
 
 #* Linting
 .PHONY: check-test
 check-test:
-	pytest -c pyproject.toml --cov=src
+	uv run pytest -c pyproject.toml --cov=src
 
 .PHONY: check-formatting
 check-formatting:
-	isort --diff --check-only --settings-path pyproject.toml ./
-	black --diff --check --config pyproject.toml ./
-	mypy --config-file pyproject.toml ./
+	uv run isort --diff --check-only --settings-path pyproject.toml ./
+	uv run black --diff --check --config pyproject.toml ./
+	uv run mypy --config-file pyproject.toml ./
 
 .PHONY: lint
 lint: check-formatting check-test
@@ -50,7 +48,7 @@ lint: check-formatting check-test
 #* Update developer tools
 .PHONY: update-dev
 update-dev:
-	pip install --upgrade \
+	uv add --group dev \
     "isort[colors]" \
     mypy \
     pre-commit \

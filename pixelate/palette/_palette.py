@@ -16,10 +16,28 @@ class Palettes(metaclass=SingletonMeta):
 
     def __init__(self) -> None:
         self._palettes: dict[str, BiDict] = {}
-        with resources.path("pixelate", "palette/assets") as palettes_dir:
-            for palette_path in palettes_dir.glob("*.toml"):
-                palette_name = palette_path.stem
-                self._palettes[palette_name] = self._load_palette(palette_path)
+        # Use files() to access palette assets
+        palette_files = resources.files("pixelate.palette.assets")
+        # Get all TOML files from the assets directory
+        for item in palette_files.iterdir():
+            if item.name.endswith(".toml"):
+                palette_name = item.stem
+                # Read the file content directly
+                with item.open("rb") as f:
+                    palette_data = tomllib.load(f)
+                self._palettes[palette_name] = self._load_palette_from_dict(palette_data)
+
+    def _load_palette_from_dict(self, palette_data: Dict[str, str]) -> BiDict:
+        """
+        Load a color palette from a dictionary.
+
+        Args:
+            palette_data: Dictionary with color name to hex color code mappings
+
+        Returns:
+            Bidirectional dictionary mapping color names to hex color codes
+        """
+        return BiDict(**palette_data)
 
     def _load_palette(self, palette_file_path: Path) -> BiDict:
         """
