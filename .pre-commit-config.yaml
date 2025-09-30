@@ -1,10 +1,23 @@
-# Pre-commit hooks configuration for pixelate
+default_language_version:
+  python: python3
+
+default_stages: [pre-commit, pre-push]
+
 repos:
-  # Run tests and local tools
-  - repo: local
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
     hooks:
-      - id: formatting
-        name: formatting
-        entry: make formatting
-        types: [python]
-        language: system
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: trailing-whitespace
+      - id: pretty-format-json
+      - id: check-json
+      - id: check-xml
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: LICENSE
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: detect-private-key
+      - id: name-tests-test

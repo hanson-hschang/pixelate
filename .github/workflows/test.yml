@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,17 +33,19 @@ jobs:
     - name: Test with pytest
       shell: bash
       run: |
-        uv run pytest -c pyproject.toml --cov=src --cov-branch --cov-report=xml --cov-report=term
-
+        make test-report
 
     - name: Test CLI functionality
       shell: bash
       run: |
         # Test CLI help
         uv run pixelate --help
+
         # Test with example file
         uv run pixelate examples/pixelate.md
+
         # Verify output was created
         ls -la examples/pixelate.png
+
         # Clean up
         rm examples/pixelate.png

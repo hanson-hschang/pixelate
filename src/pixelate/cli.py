@@ -27,12 +27,17 @@ def main(input_path: str, pixel_size: int, format: str) -> None:
     Generate pixel art images from markdown files with TOML frontmatter.
 
     INPUT_PATH can be either:
+
     - A single markdown file (e.g., filename.md)
+
     - A folder containing markdown files
 
     Examples:
+
         pixelate filename.md
+
         pixelate foldername
+
         pixelate filename.md --pixel-size 20 --format png
     """
     app: PixelateApp = PixelateApp()

@@ -23,6 +23,7 @@ classifiers = [
 ]
 dependencies = [
     "pillow>=10.0.0",
+    "types-Pillow",
     "click>=8.0.0",
     "matplotlib",
 ]
@@ -43,16 +44,11 @@ dev = [
     "pytest-cov>=5.0.0",
     "pytest-dependency>=0.6.0",
     "codecov>=2.1.13",
+    "ruff",
     "mypy>=1.0.0",
     "mypy-extensions>=1.0.0",
-    "types-toml",
-    "types-Pillow",
-    "black>=23.0.0",
-    "isort[colors]",
-    "flake8>=6.0.0",
     "bandit[toml]>=1.7.0",
     "pre-commit>=3.0.0",
-    "autoflake",
 ]
 
 [build-system]
@@ -118,56 +114,35 @@ omit = [
     "setup.py",
 ]
 
-[tool.black]
-# https://github.com/psf/black
-target-version = ["py311"]
+[tool.ruff]
+# Set the line length for both the linter and formatter.
 line-length = 79
-color = true
-exclude = '''
-/(
-    \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | env
-    | venv
-)/
-'''
 
-[tool.isort]
-# https://github.com/timothycrosley/isort/
-line_length = 79  # https://peps.python.org/pep-0008/
-known_typing = [
-    "typing",
-    "types",
-    "typing_extensions",
-    "mypy",
-    "mypy_extensions",
-]
-sections = [
-    "FUTURE",
-    "TYPING",
-    "STDLIB",
-    "THIRDPARTY",
-    "FIRSTPARTY",
-    "LOCALFOLDER",
-]
-include_trailing_comma = true
-profile = "black"
-multi_line_output = 3
-indent = 4
-use_parentheses = true
-color_output = true
+# Set the target Python version.
+target-version = "py311"
 
-[tool.autoflake]
-ignore-init-module-imports = true
-ignore-pass-statements = true
-ignore-pass-after-docstring = true
+# Define files and directories to be excluded from checks.
+# Ruff uses glob patterns and merges the lists.
+exclude = [
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "env",
+    "venv",
+]
+
+[tool.ruff.lint]
+# Select the rule sets to enable.
+# "E" (pycodestyle errors), "W" (pycodestyle warnings), and "F" (Pyflakes)
+# are a good starting point to replicate flake8's default behavior.
+select = ["E", "F", "W"]
 
 [tool.mypy]
 python_version = "3.11"

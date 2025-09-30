@@ -9,15 +9,12 @@
 
 [![package: uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://docs.astral.sh/uv/)
 [![CI/CD: pre-commit](https://img.shields.io/badge/CI/CD-pre--commit-FAB040?logo=pre-commit)](https://pre-commit.com/)
+[![syntax: pyupgrade](https://img.shields.io/badge/syntax-pyupgrade-blue?logo=pyupgrade)](https://github.com/pyupgrade/pyupgrade)
 [![unit test: pytest](https://img.shields.io/badge/unit_test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
-[![linting: flake8](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://flake8.pycqa.org/)
+[![lint & format:Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://bandit.readthedocs.io/)
 
-[![syntax: pyupgrade](https://img.shields.io/badge/syntax-pyupgrade-0A9EDC?logo=pyupgrade)](https://github.com/pyupgrade/pyupgrade)
-[![code style: black](https://img.shields.io/badge/code_style-black-black)](https://github.com/psf/black)
-[![imports: isort](https://img.shields.io/badge/imports-isort-blue?labelColor=orange)](https://pycqa.github.io/isort/)
-[![unused: autoflake](https://img.shields.io/badge/unused-autoflake-blue)](https://github.com/myint/autoflake)
-[![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
 
 **a Command Line Interface (CLI) tool that generates pixel art images**
 
@@ -28,18 +25,10 @@
 
 ## 📦 Installation
 
-### From GitHub
-Install directly from GitHub using pip:
+Install directly from GitHub using pip (ensure `git` and `python >= 3.11` are installed):
 
 ```bash
 pip install git+https://github.com/hanson-hschang/pixelate.git
-```
-
-### From source
-```bash
-git clone https://github.com/hanson-hschang/pixelate.git
-cd pixelate
-pip install .
 ```
 
 ## 📝 Usage
@@ -78,7 +67,7 @@ The input markdown file consists of two parts:
 ```markdown
 +++
 # TOML front-matter with color definitions
-"1" = "#00FF0080"  # Green with 50% transparency  
+"1" = "#00FF0080"  # Green with 50% transparency
 "0" = "#00000000"  # Transparent (empty pixels)
 +++
 
@@ -103,7 +92,7 @@ In addition to hex color codes, the TOML frontmatter also supports named color p
 +++
 # Using color palettes
 "1" = "tableau:blue"    # Tableau color scheme
-"2" = "xkcd:drab"      # XKCD color names  
+"2" = "xkcd:drab"      # XKCD color names
 "0" = "#00000000"      # Hex colors still supported
 +++
 ```
