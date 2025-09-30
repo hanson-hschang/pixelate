@@ -140,17 +140,17 @@ uv run pytest -c pyproject.toml
 If you encounter formatting issues during development or in CI/CD, use these commands to automatically fix them:
 
 ```bash
-uv run pyupgrade --exit-zero-even-if-changed --py311-plus src/**/*.py # Upgrade syntax to Python 3.11+
-uv run black --config pyproject.toml ./          # Fix code formatting
-uv run isort --settings-path pyproject.toml ./  # Fix import sorting
-uv run autoflake --in-place -r src/pixelate tests examples # Remove unused imports
+uv run pyupgrade --exit-zero-even-if-changed --py311-plus src/**/*.py tests/**/*.py # Upgrade syntax to Python 3.11+
+uv run black --config pyproject.toml src tests          # Fix code formatting
+uv run isort --settings-path pyproject.toml src tests  # Fix import sorting
+uv run autoflake --in-place -r src tests # Remove unused imports
 
 # Check what would be changed without making changes:
-uv run flake8 src/pixelate tests examples  # Check for linting issues
+uv run flake8 src tests  # Check for linting issues
 uv run black --diff --check --config pyproject.toml ./
 uv run isort --diff --check-only --settings-path pyproject.toml ./
-uv run autoflake --check -r src/pixelate tests examples
-uv run mypy --config-file pyproject.toml src/pixelate tests examples         # Check static types
+uv run autoflake --check -r src tests
+uv run mypy --config-file pyproject.toml src tests         # Check static types
 ```
 
 </details>

@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: |
-        uv sync --group dev
+        uv sync --all-groups --all-extras
 
     - name: Lint with flake8
       shell: bash
@@ -47,10 +47,10 @@ jobs:
     - name: Type check with mypy
       shell: bash
       run: |
-        uv run mypy pixelate/ tests/
+        uv run mypy src/ tests/
 
     - name: Security check with bandit
       shell: bash
       run: |
-        uv run bandit -r pixelate/ -f json -o bandit-report.json || true
-        uv run bandit -r pixelate/
+        uv run bandit -r src/ -f json -o bandit-report.json || true
+        uv run bandit -r src/

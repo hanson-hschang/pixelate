@@ -24,35 +24,35 @@ pre-commit-install:
 .PHONY: black
 black:
 	uv run black --version
-	uv run black --config pyproject.toml src/pixelate tests examples
+	uv run black --config pyproject.toml src tests examples
 
 .PHONY: black-check
 black-check:
 	uv run black --version
-	uv run black --diff --check --config pyproject.toml src/pixelate tests examples
+	uv run black --diff --check --config pyproject.toml src tests examples
 
 .PHONY: flake8
 flake8:
 	uv run flake8 --version
-	uv run flake8 src/pixelate tests examples
+	uv run flake8 src tests examples
 
 .PHONY: autoflake-check
 autoflake-check:
 	uv run autoflake --version
-	uv run autoflake --check -r src/pixelate tests examples
+	uv run autoflake --check -r src tests examples
 
 .PHONY: autoflake-format
 autoflake-format:
 	uv run autoflake --version
-	uv run autoflake --in-place -r src/pixelate tests examples
-	uv run autoflake --in-place --remove-all-unused-imports -r src/pixelate tests examples
+	uv run autoflake --in-place -r src tests examples
+	uv run autoflake --in-place --remove-all-unused-imports -r src tests examples
 
 .PHONY: format-codestyle
 format-codestyle: black autoflake-format
 
 .PHONY: mypy
 mypy:
-	uv run mypy --config-file pyproject.toml src/pixelate tests examples  # Main
+	uv run mypy --config-file pyproject.toml src tests examples  # Main
 
 .PHONY: test
 test:
@@ -60,11 +60,11 @@ test:
 
 .PHONY: test_coverage
 test_coverage:
-	NUMBA_DISABLE_JIT=1 uv run pytest --cov=pixelate -c pyproject.toml
+	NUMBA_DISABLE_JIT=1 uv run pytest --cov=src -c pyproject.toml
 
 .PHONY: test_coverage_xml
 test_coverage_xml:
-	NUMBA_DISABLE_JIT=1 uv run pytest --cov=pixelate --cov-report=xml -c pyproject.toml
+	NUMBA_DISABLE_JIT=1 uv run pytest --cov=src --cov-report=xml -c pyproject.toml
 
 .PHONY: check-codestyle
 check-codestyle: black-check flake8 autoflake-check
