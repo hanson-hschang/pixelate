@@ -42,4 +42,4 @@ jobs:
       run: |
         gh release create "v${VERSION}" \
           --title "Release v${VERSION}" \
-          --notes-file <(envsubst < .github/RELEASE.md)
+          --notes-file <(envsubst < releases/RELEASE.md)

@@ -66,7 +66,7 @@ Highlight the most important changes, new features, or themes of the release.
 
 ## ⬇️ Installation
 ```bash
-pip install git+https://github.com/hanson-hschang/pixelate.git@${VERSION}
+pip install git+https://github.com/hanson-hschang/pixelate.git@v${VERSION}
 ```
 
 ## 🔗 Useful Links
