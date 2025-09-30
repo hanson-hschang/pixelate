@@ -47,12 +47,14 @@ autoflake-format:
 	uv run autoflake --in-place -r src tests examples
 	uv run autoflake --in-place --remove-all-unused-imports -r src tests examples
 
-.PHONY: format-codestyle
-format-codestyle: black autoflake-format
-
 .PHONY: mypy
 mypy:
-	uv run mypy --config-file pyproject.toml src tests examples  # Main
+	uv run mypy --config-file pyproject.toml src tests  # Main
+
+.PHONY: isort
+isort:
+	uv run isort --version
+	uv run isort --settings-path pyproject.toml src tests
 
 .PHONY: test
 test:
@@ -68,6 +70,9 @@ test_coverage_xml:
 
 .PHONY: check-codestyle
 check-codestyle: black-check flake8 autoflake-check
+
+.PHONY: format-codestyle
+format-codestyle: black autoflake-format isort mypy
 
 .PHONY: formatting
 formatting: format-codestyle

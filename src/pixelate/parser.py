@@ -2,9 +2,8 @@
 Handles parsing of markdown files with TOML frontmatter and pixel data.
 """
 
-from pathlib import Path
-
 import tomllib
+from pathlib import Path
 
 from pixelate import palette
 

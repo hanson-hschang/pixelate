@@ -2,10 +2,9 @@
 Color palette definitions and utilities for the pixelate package.
 """
 
+import tomllib
 from importlib import resources
 from pathlib import Path
-
-import tomllib
 
 from pixelate.utility.bidict import BiDict
 from pixelate.utility.singleton import SingletonMeta
