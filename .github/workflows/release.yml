@@ -29,7 +29,7 @@ jobs:
     - name: Get version from pyproject.toml
       id: get_version
       run: |
-        echo "VERSION=$(python -c "
+        echo "VERSION=$(uv run python -c "
         import tomli
         with open('pyproject.toml', 'rb') as f:
             print(tomli.load(f)['project']['version'])
