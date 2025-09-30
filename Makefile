@@ -28,7 +28,12 @@ install: ## 📦 Install production dependencies.
 .PHONY: install-dev
 install-dev: ## ⚙️  Install all development dependencies and extras.
 	@echo "⚙️ Installing all development dependencies..."
-	uv sync --all-groups --all-extras
+	uv sync --group dev
+
+.PHONY: install-build
+install-build: ## 🏗️  Install build dependencies.
+	@echo "🏗️ Installing build dependencies..."
+	uv sync --group build
 
 .PHONY: install-pre-commit
 install-pre-commit: ## 🕵️  Install pre-commit hooks.
