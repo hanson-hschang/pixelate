@@ -2,17 +2,19 @@
 Handles parsing of markdown files with TOML frontmatter and pixel data.
 """
 
-import tomllib
 from pathlib import Path
-from typing import Dict, List, Set
+
+import tomllib
 
 from pixelate import palette
 
 
 class PixelArtParser:
-    """Handles parsing of markdown files with TOML frontmatter and pixel data."""
+    """
+    Handles parsing of markdown files with TOML frontmatter and pixel data.
+    """
 
-    def parse(self, file_path: Path) -> tuple[Dict[str, str], List[List[str]]]:
+    def parse(self, file_path: Path) -> tuple[dict[str, str], list[list[str]]]:
         """
         Parse a markdown file with TOML frontmatter and CSV content.
 
@@ -21,13 +23,15 @@ class PixelArtParser:
             - color_dict: mapping of number strings to hex color codes
             - pixel_grid: 2D list of strings representing the pixel grid
         """
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         # Split content by +++ to extract frontmatter
         parts = content.split("+++")
         if len(parts) < 3:
-            raise ValueError("Markdown file must have TOML frontmatter wrapped in +++")
+            raise ValueError(
+                "Markdown file must have TOML frontmatter wrapped in +++"
+            )
 
         # Parse TOML frontmatter (second part, first part is empty)
         color_dict = self._parse_color(parts[1].strip())
@@ -39,7 +43,7 @@ class PixelArtParser:
 
         return color_dict, pixel_grid
 
-    def _parse_color(self, toml_content: str) -> Dict[str, str]:
+    def _parse_color(self, toml_content: str) -> dict[str, str]:
         """
         Parse a color definition from the TOML frontmatter.
 
@@ -51,12 +55,12 @@ class PixelArtParser:
             ValueError: If the color definition is invalid
         """
         try:
-            toml_data: Dict[str, str] = tomllib.loads(toml_content)
+            toml_data: dict[str, str] = tomllib.loads(toml_content)
         except tomllib.TOMLDecodeError as e:
             raise ValueError(f"Invalid TOML in frontmatter: {e}")
 
         # Extract color dictionary
-        color_dict: Dict[str, str] = {}
+        color_dict: dict[str, str] = {}
         for key, color_name in toml_data.items():
             if isinstance(color_name, str):
                 try:
@@ -71,7 +75,9 @@ class PixelArtParser:
 
         return color_dict
 
-    def _parse_grid(self, csv_content: str, color_keys: Set[str]) -> List[List[str]]:
+    def _parse_grid(
+        self, csv_content: str, color_keys: set[str]
+    ) -> list[list[str]]:
         """
         Parse CSV content into a 2D list representing the pixel grid.
 
@@ -81,8 +87,8 @@ class PixelArtParser:
         Returns:
             A 2D list of strings representing the pixel grid
         """
-        pixel_grid: List[List[str]] = []
-        keys: Set[str] = set()
+        pixel_grid: list[list[str]] = []
+        keys: set[str] = set()
 
         total_cols = None
         for line in csv_content.split("\n"):
@@ -108,10 +114,15 @@ class PixelArtParser:
 
             pixel_grid.append(row)
 
-        # Validate that all keys in the grid are defined in the color dictionary
+        # Validate that all keys in the grid are already defined
         if undefined_keys := keys - color_keys:
-            raise ValueError(f"Undefined color keys in pixel grid: {undefined_keys}")
+            raise ValueError(
+                f"Undefined color keys in pixel grid: {undefined_keys}"
+            )
 
-        print(f"Pixel grid size: {len(pixel_grid)} rows, {len(pixel_grid[0])} columns")
+        print(
+            f"Pixel grid size: "
+            f"{len(pixel_grid)} rows, {len(pixel_grid[0])} columns"
+        )
 
         return pixel_grid

@@ -24,35 +24,35 @@ pre-commit-install:
 .PHONY: black
 black:
 	uv run black --version
-	uv run black --config pyproject.toml pixelate tests examples
+	uv run black --config pyproject.toml src/pixelate tests examples
 
 .PHONY: black-check
 black-check:
 	uv run black --version
-	uv run black --diff --check --config pyproject.toml pixelate tests examples
+	uv run black --diff --check --config pyproject.toml src/pixelate tests examples
 
 .PHONY: flake8
 flake8:
 	uv run flake8 --version
-	uv run flake8 pixelate tests
+	uv run flake8 src/pixelate tests examples
 
 .PHONY: autoflake-check
 autoflake-check:
 	uv run autoflake --version
-	uv run autoflake --check -r pixelate tests examples
+	uv run autoflake --check -r src/pixelate tests examples
 
 .PHONY: autoflake-format
 autoflake-format:
 	uv run autoflake --version
-	uv run autoflake --in-place -r pixelate tests examples
-	uv run autoflake --in-place --remove-all-unused-imports -r pixelate tests examples
+	uv run autoflake --in-place -r src/pixelate tests examples
+	uv run autoflake --in-place --remove-all-unused-imports -r src/pixelate tests examples
 
 .PHONY: format-codestyle
 format-codestyle: black autoflake-format
 
 .PHONY: mypy
 mypy:
-	uv run mypy --config-file pyproject.toml pixelate  # Main
+	uv run mypy --config-file pyproject.toml src/pixelate tests examples  # Main
 
 .PHONY: test
 test:

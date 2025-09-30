@@ -2,15 +2,13 @@
 Handles generating images from pixel data.
 """
 
-from typing import Dict, List, Tuple
-
 from PIL import Image, ImageDraw
 
 
 class ImageGenerator:
     """Handles generating images from pixel data."""
 
-    def hex_to_rgba(self, hex_color: str) -> Tuple[int, int, int, int]:
+    def hex_to_rgba(self, hex_color: str) -> tuple[int, int, int, int]:
         """Convert hex color string to RGBA tuple.
 
         Args:
@@ -41,8 +39,8 @@ class ImageGenerator:
 
     def generate(
         self,
-        color_dict: Dict[str, str],
-        pixel_grid: List[List[str]],
+        color_dict: dict[str, str],
+        pixel_grid: list[list[str]],
         pixel_size: int,
     ) -> Image.Image:
         """
@@ -76,11 +74,14 @@ class ImageGenerator:
                 if cell_value in color_dict:
                     hex_color: str = color_dict[cell_value]
                     try:
-                        rgba_color: Tuple[int, int, int, int] = self.hex_to_rgba(
-                            hex_color
+                        rgba_color: tuple[int, int, int, int] = (
+                            self.hex_to_rgba(hex_color)
                         )
                     except ValueError as e:
-                        print(f"Warning: {e}, skipping cell at ({row_idx}, {col_idx})")
+                        print(
+                            f"Warning: {e}, "
+                            f"skipping cell at ({row_idx}, {col_idx})"
+                        )
                         continue
                 else:
                     print(

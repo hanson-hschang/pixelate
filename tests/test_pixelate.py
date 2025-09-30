@@ -2,9 +2,10 @@
 Tests for the pixelate package.
 """
 
+from typing import Generator
+
 import tempfile
 from pathlib import Path
-from typing import Generator
 
 import pytest
 
@@ -31,7 +32,9 @@ def sample_markdown_content() -> str:
 @pytest.fixture
 def temp_md_file(sample_markdown_content: str) -> Generator[Path, None, None]:
     """Create a temporary markdown file for testing."""
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".md", delete=False
+    ) as f:
         f.write(sample_markdown_content)
         temp_file: Path = Path(f.name)
     yield temp_file
@@ -52,7 +55,11 @@ class TestPixelArtParser:
         color_dict, pixel_grid = parser.parse(temp_md_file)
 
         assert color_dict == {"1": "#FF0000", "0": "#00000000"}
-        assert pixel_grid == [["1", "0", "1"], ["0", "1", "0"], ["1", "0", "1"]]
+        assert pixel_grid == [
+            ["1", "0", "1"],
+            ["0", "1", "0"],
+            ["1", "0", "1"],
+        ]
 
     def test_parse_markdown_with_named_colors(self) -> None:
         """Test parsing markdown with named colors from palettes."""
@@ -67,7 +74,9 @@ class TestPixelArtParser:
 2,0,1
 """
 
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".md", delete=False
+        ) as f:
             f.write(content)
             temp_file = Path(f.name)
 
@@ -79,7 +88,11 @@ class TestPixelArtParser:
             assert color_dict["1"] == "#1F77B4"  # tableau:blue
             assert color_dict["2"] == "#828344"  # xkcd:drab
             assert color_dict["0"] == "#00000000"  # hex color
-            assert pixel_grid == [["1", "2", "0"], ["0", "1", "2"], ["2", "0", "1"]]
+            assert pixel_grid == [
+                ["1", "2", "0"],
+                ["0", "1", "2"],
+                ["2", "0", "1"],
+            ]
 
         finally:
             # Cleanup

@@ -17,7 +17,10 @@ from pixelate.app import PixelateApp
     help="Size of each pixel in the output image (default: 10)",
 )
 @click.option(
-    "--format", type=str, default="png", help="Output image format (default: png)"
+    "--format",
+    type=str,
+    default="png",
+    help="Output image format (default: png)",
 )
 def main(input_path: str, pixel_size: int, format: str) -> None:
     """

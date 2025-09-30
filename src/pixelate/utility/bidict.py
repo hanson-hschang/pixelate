@@ -1,6 +1,6 @@
 class BiDict:
     """
-    A bidirectional dictionary allowing lookups from key to value and value to key.
+    A bidirectional dictionary that lookups from key to value and value to key.
     Both keys and values must be unique and cannot be the same.
     """
 
@@ -14,7 +14,8 @@ class BiDict:
     def __setitem__(self, key: str, value: str) -> None:
         if key in self._dictionary or value in self._dictionary.values():
             raise ValueError(
-                f"Duplicate key or value: {key}, {value}. To update, delete first."
+                f"Duplicate key or value: {key}, {value}. "
+                f"To update, delete first."
             )
         if key == value:
             raise ValueError(f"The key and value cannot be the same: {key}")
@@ -66,4 +67,6 @@ class BiDict:
         return {k: v for k, v in self._dictionary.items() if k in self._keys}
 
     def __str__(self) -> str:
-        return str({k: v for k, v in self._dictionary.items() if k in self._keys})
+        return str(
+            {k: v for k, v in self._dictionary.items() if k in self._keys}
+        )

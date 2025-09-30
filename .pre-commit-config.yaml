@@ -3,54 +3,8 @@ repos:
   # Run tests and local tools
   - repo: local
     hooks:
-      # Format code with black
-      - id: black
-        name: black
-        entry: black
-        language: system
+      - id: formatting
+        name: formatting
+        entry: make formatting
         types: [python]
-        require_serial: true
-
-      # Sort imports with isort
-      - id: isort
-        name: isort
-        entry: isort
-        args: ["--profile", "black"]
         language: system
-        types: [python]
-        require_serial: true
-
-      # Lint with flake8
-      - id: flake8
-        name: flake8
-        entry: flake8
-        args: ['--max-line-length=88', '--extend-ignore=E203,W503,D104,D107,D102,D200']
-        language: system
-        types: [python]
-
-      # Type check with mypy
-      - id: mypy
-        name: mypy
-        entry: mypy
-        args: [pixelate/, tests/]
-        language: system
-        types: [python]
-        pass_filenames: false
-
-      # Security check with bandit
-      - id: bandit
-        name: bandit
-        entry: bandit
-        args: [-r, pixelate/]
-        language: system
-        types: [python]
-        pass_filenames: false
-
-      # Run tests
-      - id: pytest
-        name: pytest
-        entry: pytest
-        args: [tests/, -v]
-        language: system
-        types: [python]
-        pass_filenames: false

@@ -2,12 +2,11 @@
 Script to create color palette TOML files.
 
 This script creates TOML files for different color palettes.
-It converts matplotlib color definitions to hex format and saves them as TOML files.
+It converts color definitions to hex format and saves them as TOML files.
 """
 
 from enum import Enum
 from pathlib import Path
-from typing import Dict
 
 import matplotlib.colors as mcolors
 
@@ -16,7 +15,7 @@ from pixelate.utility.bidict import BiDict
 
 class Palette:
     """
-    Represents a color palette with methods to retrieve colors from various packages.
+    Represents a color palette with methods to retrieve colors from packages.
     """
 
     def __init__(self, package: str, name: str) -> None:
@@ -49,7 +48,8 @@ class Palette:
         Retrieve a matplotlib color palette by name.
 
         Args:
-            name: Name of the matplotlib color palette (e.g., 'base', 'tableau', ...)
+            name: Name of the matplotlib color palette
+            (e.g., 'base', 'tableau', ...)
 
         Returns:
             Dictionary mapping color names to their hex color codes
@@ -71,7 +71,8 @@ class Palette:
 
                 for color_name, color in _palette.items():
                     if "grey" in color_name:
-                        continue  # Skip grey colors to avoid duplicates with gray
+                        # Skip grey colors to avoid duplicates with gray
+                        continue
                     palette[color_name] = mcolors.to_hex(color)
             case "xkcd":
                 for color_name, color in mcolors.XKCD_COLORS.items():
@@ -94,7 +95,7 @@ class Palettes(Enum):
     BASE = Palette.from_matplotlib("base")
 
     @classmethod
-    def to_dict(cls) -> Dict[str, BiDict]:
+    def to_dict(cls) -> dict[str, BiDict]:
         """Convert enum members to a dictionary."""
         return {palette.name.lower(): palette.value for palette in cls}
 
@@ -107,8 +108,9 @@ def main() -> None:
 
     for name, palette in Palettes.to_dict().items():
         # Create TOML file for each palette
-        with open(PALETTE_ASSETS_DIR / f"{name}.toml", "w", encoding="utf-8") as f:
-
+        with open(
+            PALETTE_ASSETS_DIR / f"{name}.toml", "w", encoding="utf-8"
+        ) as f:
             # Find the longest color name for formatting
             max_length = max(len(color_name) for color_name in palette.keys())
 

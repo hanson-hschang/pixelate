@@ -1,5 +1,6 @@
 <div align=center>
-  <h1>PIXELATE</h1>
+
+# `PIXELATE`
 
 [![Test](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml)
 [![Lint](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml)
@@ -18,12 +19,14 @@
 [![unused: autoflake](https://img.shields.io/badge/unused-autoflake-blue)](https://github.com/myint/autoflake)
 [![static type: mypy](https://img.shields.io/badge/static_type-mypy-blue)](https://mypy-lang.org/)
 
+**a Command Line Interface (CLI) tool that generates pixel art images**
+
+[Installation](#-installation) • [Usage](#-usage) • [Format](#-format)
 
 </div>
 
-A CLI tool that generates pixel art PNG images from markdown files with TOML front-matter.
 
-## Installation
+## 📦 Installation
 
 ### From GitHub
 Install directly from GitHub using pip:
@@ -39,88 +42,7 @@ cd pixelate
 pip install .
 ```
 
-## Development
-
-<details>
-<summary>Setup Development Environment</summary>
-
-### Prerequisites
-This project uses uv for fast, reliable Python package management during development. Install uv first:
-
-```bash
-# Install uv with pip
-pip install uv
-```
-
-### Development Installation
-Clone the repository and install with dev dependencies:
-```bash
-git clone https://github.com/hanson-hschang/pixelate.git
-cd pixelate
-uv sync --all-groups --all-extras
-```
-
-This installs all required development tools:
-- pytest (testing framework)
-- pyupgrade (syntax upgrades)
-- mypy (static type checking)
-- types-toml, types-Pillow (type stubs)
-- black (code formatting)
-- isort (import sorting)
-- flake8 (linting)
-- autoflake (remove unused imports)
-- bandit (security checking)
-- pre-commit (git hooks)
-
-### Pre-commit Hooks
-Install pre-commit hooks to ensure code quality:
-```bash
-uv run pre-commit install
-```
-
-### Testing
-Run tests with pytest:
-```bash
-# Run tests
-uv run python -m pytest tests/ -v
-```
-
-
-### Fixing Code Formatting Issues
-
-If you encounter formatting issues during development or in CI/CD, use these commands to automatically fix them:
-
-```bash
-# Fix all formatting issues at once
-make formatting
-
-# Or run individual formatters:
-uv run black --config pyproject.toml ./          # Fix code formatting
-uv run isort --settings-path pyproject.toml ./  # Fix import sorting
-uv run pyupgrade --py311-plus pixelate/**/*.py  # Upgrade syntax to Python 3.11+
-
-# Check what would be changed without making changes:
-uv run black --diff --check --config pyproject.toml ./
-uv run isort --diff --check-only --settings-path pyproject.toml ./
-```
-
-### Code Quality
-- **Formatting**: Code is automatically formatted with [black](https://black.readthedocs.io/)
-- **Import sorting**: Imports are sorted with [isort](https://pycqa.github.io/isort/)
-- **Linting**: Code is linted with [flake8](https://flake8.pycqa.org/)
-- **Type checking**: Static type checking with [mypy](https://mypy.readthedocs.io/)
-- **Security**: Security checks with [bandit](https://bandit.readthedocs.io/)
-
-### CI/CD
-This project uses GitHub Actions for continuous integration with separate workflows:
-- **Test workflow**: Tests run on Python 3.11+
-- **Formatting workflow**: Ensures code adheres to formatting standards
-- **Security workflow**: CodeQL security scanning with write permissions for security results
-- All checks must pass before merging to main branch
-
-</details>
-
-## Usage
+## 📝 Usage
 
 ### Single file usage
 ```bash
@@ -145,9 +67,13 @@ pixelate examples/
 pixelate myfile.md --pixel-size 20 --format png
 ```
 
-## Format
+## 🎨 Format
 
-The markdown file should have the following format:
+### The Markdown File
+
+The input markdown file consists of two parts:
+  1. a TOML front-matter section defining colors, and
+  2. a CSV-like pixel grid where each value corresponds to a color defined in the front-matter.
 
 ```markdown
 +++
@@ -166,6 +92,7 @@ The markdown file should have the following format:
 <div align=center>
 
   ![pixelate.png](examples/pixelate.png)
+
 </div>
 
 ### Color Palettes
@@ -183,12 +110,20 @@ In addition to hex color codes, the TOML frontmatter also supports named color p
 
 **Supported Palettes:**
 
+- **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
+
 - **Tableau colors** (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
 
 - **CSS4 colors** (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
 
-- **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
-
 - **XKCD colors** (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
 
 See `examples/palette-demo.md` for a complete example using color palettes.
+
+---
+
+<div align="center">
+
+**[⭐ Star this repository](https://github.com/hanson-hschang/pixelate) if you find it helpful!**
+
+</div>

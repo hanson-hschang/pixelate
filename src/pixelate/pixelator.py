@@ -3,7 +3,6 @@ Handles file and folder operations.
 """
 
 from pathlib import Path
-from typing import Optional
 
 from pixelate.generator import ImageGenerator
 from pixelate.parser import PixelArtParser
@@ -19,7 +18,7 @@ class Pixelator:
     def process(
         self,
         markdown_file: Path,
-        output_dir: Optional[Path] = None,
+        output_dir: Path | None = None,
         pixel_size: int = 10,
         format: str = "png",
     ) -> None:
@@ -43,7 +42,9 @@ class Pixelator:
             color_dict, pixel_grid = self._parser.parse(markdown_file)
 
             # Generate the pixel image
-            image = self._generator.generate(color_dict, pixel_grid, pixel_size)
+            image = self._generator.generate(
+                color_dict, pixel_grid, pixel_size
+            )
 
             # Generate output filename with same name as markdown file
             output_filename = markdown_file.stem + f".{format}"

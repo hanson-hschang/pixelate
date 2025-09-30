@@ -40,7 +40,9 @@ class PixelateApp:
             files = list(input_path.glob("*.md"))
 
             if not files:
-                print(f"Error: No markdown files found in folder '{input_path_name}'")
+                print(
+                    f"Error: No markdown files found in folder '{input_path}'"
+                )
                 sys.exit(1)
 
             print(f"Found {len(files)} markdown file(s) to process\n")

@@ -2,9 +2,10 @@
 Color palette definitions and utilities for the pixelate package.
 """
 
-import tomllib
 from importlib import resources
 from pathlib import Path
+
+import tomllib
 
 from pixelate.utility.bidict import BiDict
 from pixelate.utility.singleton import SingletonMeta
@@ -47,7 +48,9 @@ class Palettes(metaclass=SingletonMeta):
         except FileNotFoundError:
             raise ValueError(f"Palette file not found: {palette_file_path}")
         except tomllib.TOMLDecodeError as e:
-            raise ValueError(f"Error parsing TOML file {palette_file_path}: {e}")
+            raise ValueError(
+                f"Error parsing TOML file {palette_file_path}: {e}"
+            )
 
     def __getitem__(self, palette_name: str) -> BiDict:
         if palette_name not in self._palettes:
