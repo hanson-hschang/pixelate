@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: |
-        uv sync --all-groups --all-extras
+        make install-dev
 
     - name: Linting with ruff
       shell: bash

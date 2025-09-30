@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: |
-        uv sync --all-groups --all-extras
+        make install-dev
 
     - name: Test with pytest
       shell: bash
