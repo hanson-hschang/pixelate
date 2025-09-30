@@ -3,7 +3,7 @@
 # `PIXELATE`
 
 [![Test](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/test.yml)
-[![Lint](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/lint.yml)
+[![Quality](https://github.com/hanson-hschang/pixelate/actions/workflows/quality.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/quality.yml)
 [![Security](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml/badge.svg)](https://github.com/hanson-hschang/pixelate/actions/workflows/security.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-yellow)](https://opensource.org/licenses/MIT)
 
