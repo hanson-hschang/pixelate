@@ -94,7 +94,7 @@ class PixelArtParser:
             line = line.strip()
 
             # Skip empty lines or comments
-            if not line or line[0] is "#":
+            if not line or line[0] == "#":
                 continue
 
             # Split by comma and clean up each cell
