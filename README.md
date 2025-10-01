@@ -67,7 +67,6 @@ The input markdown file consists of two parts:
 ```markdown
 +++
 # TOML front-matter with color definitions
-+++
 "1" = "#80808080"      # Gray with transparency
 "2" = "base:m"         # Base magenta color
 "3" = "tableau:blue"   # Tableau blue color
@@ -89,15 +88,15 @@ The input markdown file consists of two parts:
 
 </div>
 
-**Supported Palettes:**
+**Supported Named Color Palettes:**
 
-- **Base colors** (8 colors): `base:r` (red), `base:g` (green), `base:b` (blue), `base:c` (cyan), `base:m` (magenta), `base:y` (yellow), `base:k` (black), `base:w` (white)
+- **Base colors** (8 colors): `base:r` (red, #FF0000), `base:g` (green, #008000), `base:b` (blue, #0000FF), `base:c` (cyan, #00BFBF), `base:m` (magenta, #BF00BF), `base:y` (yellow, #BFBF00), `base:k` (black, #000000), `base:w` (white, #FFFFFF)
 
-- **Tableau colors** (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
+- [**Tableau colors**](https://www.tableau.com/blog/colors-upgrade-tableau-10-56782) (10 colors): `tableau:blue`, `tableau:orange`, `tableau:green`, `tableau:red`, `tableau:purple`, `tableau:brown`, `tableau:pink`, `tableau:gray`, `tableau:olive`, `tableau:cyan`
 
-- **CSS4 colors** (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
+- [**CSS4 colors**](https://drafts.csswg.org/css-color-4/#named-colors) (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
 
-- **XKCD colors** (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
+- [**XKCD colors**](https://xkcd.com/color/rgb/) (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
 
 ---
 
