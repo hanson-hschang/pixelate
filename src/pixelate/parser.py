@@ -93,8 +93,8 @@ class PixelArtParser:
         for line in csv_content.split("\n"):
             line = line.strip()
 
-            # Skip empty lines
-            if not line:
+            # Skip empty lines or comments
+            if not line or line[0] is "#":
                 continue
 
             # Split by comma and clean up each cell

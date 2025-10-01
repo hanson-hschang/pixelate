@@ -61,41 +61,33 @@ pixelate myfile.md --pixel-size 20 --format png
 ### The Markdown File
 
 The input markdown file consists of two parts:
-  1. a TOML front-matter section defining colors, and
+  1. a TOML front-matter section defining colors (both hex color codes and named color palettes), and
   2. a CSV-like pixel grid where each value corresponds to a color defined in the front-matter.
 
 ```markdown
 +++
 # TOML front-matter with color definitions
-"1" = "#00FF0080"  # Green with 50% transparency
-"0" = "#00000000"  # Transparent (empty pixels)
++++
+"1" = "#80808080"      # Gray with transparency
+"2" = "base:m"         # Base magenta color
+"3" = "tableau:blue"   # Tableau blue color
+"4" = "css4:coral"     # CSS4 coral color
+"5" = "xkcd:drab"      # XKCD drab color
+"0" = "#00000000"      # Transparent (empty pixels)
 +++
 
 # CSV-like pixel grid (position indicates row/column)
-1,1,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1
-1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0
-1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,1
-1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0
-1,0,0,0,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,1
+3,5,2,5,3,0,1,1,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1
+5,4,5,4,5,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0
+2,5,2,5,2,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,1
+5,4,5,4,5,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0
+3,5,2,5,3,0,1,0,0,0,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,1
 ```
 <div align=center>
 
   ![pixelate.png](examples/pixelate.png)
 
 </div>
-
-### Color Palettes
-
-In addition to hex color codes, the TOML frontmatter also supports named color palettes:
-
-```markdown
-+++
-# Using color palettes
-"1" = "tableau:blue"    # Tableau color scheme
-"2" = "xkcd:drab"      # XKCD color names
-"0" = "#00000000"      # Hex colors still supported
-+++
-```
 
 **Supported Palettes:**
 
@@ -106,8 +98,6 @@ In addition to hex color codes, the TOML frontmatter also supports named color p
 - **CSS4 colors** (139 colors): `css4:red`, `css4:blue`, `css4:green`, `css4:aliceblue`, `css4:antiquewhite`, `css4:aqua (cyan)`, `css4:beige`, `css4:coral`, `css4:gold`, and many more standard web colors
 
 - **XKCD colors** (949 colors): `xkcd:red`, `xkcd:drab`, `xkcd:navy`, `xkcd:lime`, `xkcd:coral`, `xkcd:gold`, `xkcd:azure`, and hundreds more from the XKCD color survey
-
-See `examples/palette-demo.md` for a complete example using color palettes.
 
 ---
 
