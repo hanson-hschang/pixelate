@@ -3,6 +3,7 @@
 # Contributing to `PIXELATE`
 
 Thank you for your interest in contributing to `PIXELATE`!
+
 We welcome contributions from the community and appreciate your help in making this project better.
 
 [How to Contribute](#-how-to-contribute) • [Developer Setup](#-developer-setup) • [Pull Request Process](#-pull-request-process) • [Recognition](#-recognition)
@@ -161,7 +162,7 @@ uv run mypy src tests
 
 ### IV. CI/CD
 This project uses GitHub Actions for continuous integration with separate workflows:
-- **Test workflow**: Tests run on Python 3.11+
+- **Test workflow**: Runs tests on Ubuntu, Windows, and macOS
 - **Linting workflow**: Ensures code adheres to linting standards
 - **Security workflow**: CodeQL security scanning with write permissions for security results
 - All checks must pass before merging to main branch
@@ -244,8 +245,6 @@ We appreciate your time and effort in helping to improve this project.
 ---
 
 <div align="center">
-
-**Thank you for contributing to `PIXELATE`!**
 
 ![pixelate.png](examples/pixelate.png)
 

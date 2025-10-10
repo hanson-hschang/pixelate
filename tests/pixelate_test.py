@@ -30,7 +30,7 @@ def sample_markdown_content() -> str:
 
 
 @pytest.fixture
-def temp_md_file(sample_markdown_content: str) -> Generator[Path, None, None]:
+def temp_md_file(sample_markdown_content: str) -> Generator[Path]:
     """Create a temporary markdown file for testing."""
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".md", delete=False

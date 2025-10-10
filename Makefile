@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Use this to define paths for formatters and linters once.
-PY_SOURCES = src tests
+PY_SOURCES = src tests examples
 
 # ==============================================================================
 # SELF-DOCUMENTING HELP TARGET
@@ -43,17 +43,20 @@ install-pre-commit: ## 🕵️  Install pre-commit hooks.
 # ==============================================================================
 # CODE QUALITY
 # ==============================================================================
-.PHONY: linting
-linting: ## 🔎 Check for linting issues without changing files.
+.PHONY: syntax
+syntax: ## 🔎 Check for syntax upgrades without changing files.
 	@echo "🔎 Checking for syntax upgrades..."
 	find $(PY_SOURCES) -name "*.py" -type f -print0 | xargs -0 -r uv run pyupgrade --py311-plus --exit-zero-even-if-changed
+
+.PHONY: linting
+linting: ## 🔎 Check for linting issues without changing files.
+	make syntax
 	@echo "🔎 Checking for linting issues..."
 	uv run ruff check $(PY_SOURCES)
 
 .PHONY: formatting
 formatting: ## ✨ Format and fix code automatically.
-	@echo "🔎 Checking for syntax upgrades..."
-	find $(PY_SOURCES) -name "*.py" -type f -print0 | xargs -0 -r uv run pyupgrade --py311-plus --exit-zero-even-if-changed
+	make syntax
 	@echo "✨ Formatting and fixing code..."
 	uv run ruff format $(PY_SOURCES)
 	uv run ruff check $(PY_SOURCES) --fix
