@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Use this to define paths for formatters and linters once.
-PY_SOURCES = src tests examples
+PY_SOURCES = src tests
 
 # ==============================================================================
 # SELF-DOCUMENTING HELP TARGET
