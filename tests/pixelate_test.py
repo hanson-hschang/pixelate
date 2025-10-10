@@ -2,7 +2,7 @@
 Tests for the pixelate package.
 """
 
-from typing import Generator
+from collections.abc import Generator
 
 import tempfile
 from pathlib import Path

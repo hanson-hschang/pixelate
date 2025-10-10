@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Use this to define paths for formatters and linters once.
-PY_SOURCES = src tests examples
+PY_SOURCES = src tests
 
 # ==============================================================================
 # SELF-DOCUMENTING HELP TARGET
@@ -45,11 +45,15 @@ install-pre-commit: ## 🕵️  Install pre-commit hooks.
 # ==============================================================================
 .PHONY: linting
 linting: ## 🔎 Check for linting issues without changing files.
+	@echo "🔎 Checking for syntax upgrades..."
+	find $(PY_SOURCES) -name "*.py" -type f -print0 | xargs -0 -r uv run pyupgrade --py311-plus --exit-zero-even-if-changed
 	@echo "🔎 Checking for linting issues..."
 	uv run ruff check $(PY_SOURCES)
 
 .PHONY: formatting
 formatting: ## ✨ Format and fix code automatically.
+	@echo "🔎 Checking for syntax upgrades..."
+	find $(PY_SOURCES) -name "*.py" -type f -print0 | xargs -0 -r uv run pyupgrade --py311-plus --exit-zero-even-if-changed
 	@echo "✨ Formatting and fixing code..."
 	uv run ruff format $(PY_SOURCES)
 	uv run ruff check $(PY_SOURCES) --fix
@@ -57,7 +61,7 @@ formatting: ## ✨ Format and fix code automatically.
 .PHONY: typing
 typing: ## 🔬 Run static type checking with mypy.
 	@echo "🔬 Running static type checking..."
-	uv run mypy src tests
+	uv run mypy ${PY_SOURCES}
 
 .PHONY: security
 security: ## 🛡️  Run security checks with bandit.

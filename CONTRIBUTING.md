@@ -2,7 +2,7 @@
 
 # Contributing to `PIXELATE`
 
-Thank you for your interest in contributing to `PIXELATE`! 
+Thank you for your interest in contributing to `PIXELATE`!
 We welcome contributions from the community and appreciate your help in making this project better.
 
 [How to Contribute](#-how-to-contribute) • [Developer Setup](#-developer-setup) • [Pull Request Process](#-pull-request-process) • [Recognition](#-recognition)
@@ -34,63 +34,68 @@ We welcome contributions from the community and appreciate your help in making t
 
 We especially welcome contributions in these areas:
 
-**High Priority**
+- **High Priority**
+  - **Bug fixes** and stability improvements
+  - **Performance optimizations**
+  - **Chore tasks** like dependency updates and documentation improvements
 
-- **Bug fixes** and stability improvements
-- **Performance optimizations**
-- **Chore tasks** like dependency updates and documentation improvements
+- **Medium Priority**
+  - **Code organization** and refactoring
+  - **New features** that align with project goals
+  - **Test coverage** enhancements
 
-**Medium Priority**
-
-- **Code organization** and refactoring
-- **New features** that align with project goals
-- **Test coverage** enhancements
-
-**Low Priority**
-
-- **Minor enhancements** and quality-of-life improvements
-- **Examples** and tutorials
+- **Low Priority**
+  - **Minor enhancements** and quality-of-life improvements
+  - **Examples** and tutorials
 
 <details>
 
-<summary>Detailed Contribution Steps</summary>
+<summary>Detailed Code Contribution Steps</summary>
 
-1. **Create a feature branch**:
+1. **Fork the repository** on GitHub to your own account.
+
+2. **Clone your fork** locally:
+   ```bash
+   git clone https://github.com/your-username/pixelate.git
+   cd pixelate
+   ```
+
+3. **Create a feature branch**:
    ```bash
    git checkout -b feat/your-feature-name
    ```
 
-2. **Make your changes**:
+4. **Make your changes**:
    - Follow existing code style
    - Write tests for new features or bug fixes
    - Update documentation if needed
 
-3. **Commit your changes**:
+5. **Commit your changes**:
    ```bash
    git add .
    git commit -m "feat: add amazing new feature"
    ```
 
-4. **Push to your fork**:
+6. **Push to your fork**:
    ```bash
    git push origin feature/your-feature-name
    ```
 
-5. **Create a Pull Request** on GitHub
+7. **Create a Pull Request** on GitHub
 
-6. **Engage in the review process**:
+8. **Engage in the review process**:
    - Respond to feedback
    - Make requested changes
    - Ensure all checks pass
 
-7. **Celebrate your contribution** once merged!
+9. **Celebrate your contribution** once merged!
 
 </details>
 
 ## 🚀 Developer Setup
 
 ### I. Prerequisites
-This project uses uv for fast and reliable Python package management during development. 
+This project uses uv for fast and reliable Python package management during development.
 Install uv first:
 
 ```bash
@@ -113,52 +118,44 @@ uv sync --all-groups --all-extras
 This installs the package in editable mode along with all development dependencies including testing, linting, formatting, and type checking tools.
 
 **Development Tools:**
-- pytest (testing framework)
-- pyupgrade (syntax upgrades)
-- mypy (static type checking)
-- types-toml, types-Pillow (type stubs)
-- black (code formatting)
-- isort (import sorting)
-- flake8 (linting)
-- autoflake (remove unused imports)
-- bandit (security checking)
 - pre-commit (git hooks)
+- pyupgrade (syntax upgrades)
+- pytest (testing framework)
+- Ruff (linting and formatting)
+- mypy (static type checking)
+- bandit (security checking)
 
 **Pre-commit Hooks:** Install pre-commit hooks to ensure code quality before commits
 ```bash
+# Install pre-commit hooks
 uv run pre-commit install
 ```
 
-**Testing:** Run tests with pytest
+**Testing:** Use pytest for testing
 ```bash
 # Run tests
-uv run pytest -c pyproject.toml
+uv run pytest --cov=src --cov-branch -c pyproject.toml
 ```
 
-**Linting**
-
-If you encounter formatting issues during development or in CI/CD, use these commands to automatically fix them:
-
+**Linting and Formatting:** Use Ruff for linting and formatting
 ```bash
-uv run pyupgrade --exit-zero-even-if-changed --py311-plus src/**/*.py tests/**/*.py # Upgrade syntax to Python 3.11+
-uv run black --config pyproject.toml src tests          # Fix code formatting
-uv run isort --settings-path pyproject.toml src tests  # Fix import sorting
-uv run autoflake --in-place -r src tests # Remove unused imports
+# Check for linting issues
+uv run ruff check src tests
+# Automatically fix linting issues
+uv run ruff format src tests
+uv run ruff check src tests --fix
+```
 
-# Check what would be changed without making changes:
-uv run flake8 src tests  # Check for linting issues
-uv run black --diff --check --config pyproject.toml ./
-uv run isort --diff --check-only --settings-path pyproject.toml ./
-uv run autoflake --check -r src tests
-uv run mypy --config-file pyproject.toml src tests         # Check static types
+**Type Checking:** Use mypy for static type checking
+```bash
+# Run static type checking
+uv run mypy src tests
 ```
 
 </details>
 
 ### III. Code Quality
-- **Formatting**: Code is automatically formatted with [black](https://black.readthedocs.io/)
-- **Import sorting**: Imports are sorted with [isort](https://pycqa.github.io/isort/)
-- **Linting**: Code is linted with [flake8](https://flake8.pycqa.org/)
+- **Linting & Formatting**: Code is checked and formatted with [Ruff](https://docs.astral.sh/ruff/)
 - **Type checking**: Static type checking with [mypy](https://mypy.readthedocs.io/)
 - **Security**: Security checks with [bandit](https://bandit.readthedocs.io/)
 
@@ -201,8 +198,8 @@ type(scope): short description
 feat(cli): add --verbose flag for detailed output
 fix(parser): handle edge case for empty input
 docs(readme): update installation instructions
-refactor(processor): simplify image processing logic
-test(api): add tests for new endpoint
+refactor(test): simplify test setup
+test(utility): add tests for new utility functions
 chore(deps): update dependencies to latest versions
 ```
 
